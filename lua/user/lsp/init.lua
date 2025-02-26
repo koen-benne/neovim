@@ -4,16 +4,27 @@ end
 
 require('lze').load {
   {
+    "nvim-lspconfig",
+    for_cat = 'general.always',
+    on_plugin = { "lazy-lsp.nvim" },
+  },
+  {
+    "SchemaStore.nvim",
+    for_cat = 'general.always',
+    on_plugin = { "lazy-lsp.nvim" },
+  },
+  {
+    "ts-error-translator.nvim",
+    for_cat = 'general.always',
+    on_plugin = { "lazy-lsp.nvim" },
+  },
+  {
     "lazy-lsp.nvim",
     for_cat = "general.always",
     event = "FileType",
-    load = function(name)
-      vim.cmd.packadd(name)
-      vim.cmd.packadd("nvim-lspconfig")
-      vim.cmd.packadd("blink.cmp")
-      vim.cmd.packadd("SchemaStore.nvim")
-    end,
     after = function(plugin)
+      require('ts-error-translator').setup()
+      require('user.lsp.handlers').setup()
       require('lazy-lsp').setup {
         excluded_servers = {
           'ccls',

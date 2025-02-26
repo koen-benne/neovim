@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
+    ts-error-translator-nvim = {
+      url = "github:dmmulroy/ts-error-translator.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -158,7 +163,6 @@
             # cmp stuff
             blink-cmp
             luasnip
-            crates-nvim
           ];
           treesitter = with pkgs.vimPlugins; [
             nvim-treesitter-context
@@ -184,6 +188,7 @@
           always = with pkgs.vimPlugins; [
             lazy-lsp-nvim
             SchemaStore-nvim
+            (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
             lualine-nvim
             gitsigns-nvim
