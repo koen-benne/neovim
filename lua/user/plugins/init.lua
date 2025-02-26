@@ -4,6 +4,33 @@ local colorschemeName = nixCats('colorscheme')
 -- this is just an example, feel free to do a better job!
 vim.cmd.colorscheme(colorschemeName)
 
+if colorschemeName == 'kanagawa' then
+  require('kanagawa').setup {
+    compile = true, -- enable compiling the colorscheme
+    undercurl = true, -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true },
+    statementStyle = { bold = true },
+    typeStyle = {},
+    transparent = false, -- do not set background color
+    dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true, -- define vim.g.terminal_color_{0,17}
+    colors = { -- add/modify theme and palette colors
+      palette = {},
+      theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    },
+    overrides = function(colors) -- add/modify highlights
+      return {}
+    end,
+    theme = 'wave', -- Load "wave" theme when 'background' option is not set
+    background = { -- map the value of 'background' option to a theme
+      dark = 'wave', -- try "dragon" !
+      light = 'lotus',
+    },
+  }
+end
+
 local ok, notify = pcall(require, "notify")
 if ok then
   notify.setup({
@@ -17,7 +44,6 @@ if ok then
   end, { desc = "dismiss notify popup and clear hlsearch" })
 end
 
--- NOTE: you can check if you included the category with the thing wherever you want.
 if nixCats('general.extra') then
   -- I didnt want to bother with lazy loading this.
   -- I could put it in opt and put it in a spec anyway
@@ -26,38 +52,38 @@ if nixCats('general.extra') then
   -- after the other lze definitions in the next call using priority value?
   -- didnt seem necessary.
   vim.g.loaded_netrwPlugin = 1
-  require("oil").setup({
-    default_file_explorer = true,
-    view_options = {
-      show_hidden = true
-    },
-    columns = {
-      "icon",
-      "permissions",
-      "size",
-      -- "mtime",
-    },
-    keymaps = {
-      ["g?"] = "actions.show_help",
-      ["<CR>"] = "actions.select",
-      ["<C-s>"] = "actions.select_vsplit",
-      ["<C-h>"] = "actions.select_split",
-      ["<C-t>"] = "actions.select_tab",
-      ["<C-p>"] = "actions.preview",
-      ["<C-c>"] = "actions.close",
-      ["<C-l>"] = "actions.refresh",
-      ["-"] = "actions.parent",
-      ["_"] = "actions.open_cwd",
-      ["`"] = "actions.cd",
-      ["~"] = "actions.tcd",
-      ["gs"] = "actions.change_sort",
-      ["gx"] = "actions.open_external",
-      ["g."] = "actions.toggle_hidden",
-      ["g\\"] = "actions.toggle_trash",
-    },
-  })
-  vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = 'Open Parent Directory' })
-  vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = 'Open nvim root directory' })
+  -- require("oil").setup({
+  --   default_file_explorer = true,
+  --   view_options = {
+  --     show_hidden = true
+  --   },
+  --   columns = {
+  --     "icon",
+  --     "permissions",
+  --     "size",
+  --     -- "mtime",
+  --   },
+  --   keymaps = {
+  --     ["g?"] = "actions.show_help",
+  --     ["<CR>"] = "actions.select",
+  --     ["<C-s>"] = "actions.select_vsplit",
+  --     ["<C-h>"] = "actions.select_split",
+  --     ["<C-t>"] = "actions.select_tab",
+  --     ["<C-p>"] = "actions.preview",
+  --     ["<C-c>"] = "actions.close",
+  --     ["<C-l>"] = "actions.refresh",
+  --     ["-"] = "actions.parent",
+  --     ["_"] = "actions.open_cwd",
+  --     ["`"] = "actions.cd",
+  --     ["~"] = "actions.tcd",
+  --     ["gs"] = "actions.change_sort",
+  --     ["gx"] = "actions.open_external",
+  --     ["g."] = "actions.toggle_hidden",
+  --     ["g\\"] = "actions.toggle_trash",
+  --   },
+  -- })
+  -- vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = 'Open Parent Directory' })
+  -- vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = 'Open nvim root directory' })
 end
 
 require('lze').load {

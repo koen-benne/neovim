@@ -4,15 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
-    # "plugins-hlargs" = {
-    #   url = "github:m-demare/hlargs.nvim";
-    #   flake = false;
-    # };
-
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
-
   };
 
   # see :help nixCats.flake.outputs
@@ -96,11 +87,11 @@
       # This is for plugins that will load at startup without using packadd:
       startupPlugins = {
         general = with pkgs.vimPlugins; {
-          # you can make subcategories!!!
-          # (always isnt a special name, just the one I chose for this subcategory)
           always = [
             lze
-            snacks-nvim
+            lzextras
+            nvim-notify
+            # snacks-nvim
             alpha-nvim
             nvim-autopairs
             nvim-ts-autotag
@@ -126,7 +117,7 @@
               "onedark" = onedark-nvim;
               "catppuccin" = catppuccin-nvim;
               "catppuccin-mocha" = catppuccin-nvim;
-              "tokyonight" = tokyonight-nvim;
+              "okyonight" = tokyonight-nvim;
               "tokyonight-day" = tokyonight-nvim;
               "kanagawa" = kanagawa-nvim;
             }
@@ -327,7 +318,7 @@
           # you could also pass something else:
           # see :help nixCats
           themer = true;
-          colorscheme = "onedark";
+          colorscheme = "kanagawa";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass
