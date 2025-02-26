@@ -88,9 +88,7 @@
             lzextras
             nvim-notify
             # snacks-nvim
-            nvim-autopairs
             nvim-ts-autotag
-            persistence-nvim
             sqlite-lua
             plenary-nvim
             promise-async
@@ -99,9 +97,9 @@
           ];
           extra = [
             alpha-nvim
+            persistence-nvim
             project-nvim
             nvim-web-devicons
-            mini-nvim
           ];
         };
         # You can retreive information from the
@@ -170,19 +168,17 @@
             neo-tree-nvim
           ];
           always = with pkgs.vimPlugins; [
+            mini-nvim
             lazy-lsp-nvim
             SchemaStore-nvim
             (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
             lualine-nvim
             gitsigns-nvim
-            nvim-surround
           ];
           extra = with pkgs.vimPlugins; [
             which-key-nvim
-            comment-nvim
             undotree
-            indent-blankline-nvim
             vim-startuptime
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.

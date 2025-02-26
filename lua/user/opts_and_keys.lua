@@ -2,79 +2,76 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-if os.getenv('WAYLAND_DISPLAY') and vim.fn.exepath('wl-copy') ~= "" then
-  vim.g.clipboard = {
-      name = 'wl-clipboard',
-      copy = {
-          ['+'] = 'wl-copy',
-          ['*'] = 'wl-copy',
-      },
-      paste = {
-          ['+'] = 'wl-paste',
-          ['*'] = 'wl-paste',
-      },
-      cache_enabled = 1,
-  }
+local options = {
+  backup = false,
+  clipboard = 'unnamedplus',
+  completeopt = { 'menu', 'menuone', 'noselect' }, -- cmp stuff
+  mouse = 'a', -- allow mouse use
+  smartcase = true,
+  smartindent = true,
+  number = true,
+  pumheight = 10, -- pop up menu height
+  incsearch = true,
+  visualbell = true,
+  showtabline = 1, -- only show tabline when there are more than one tab
+  numberwidth = 2, -- set number column width to 2 {default 4}
+  signcolumn = 'yes', -- always show the sign column to prevent shifting text
+  expandtab = true,
+  shiftwidth = 2,
+  tabstop = 2,
+  wrap = true,
+  autoindent = true,
+  ruler = true,
+  hlsearch = true,
+  relativenumber = false,
+  scrolloff = 8,
+  sidescrolloff = 8,
+  swapfile = false,
+  splitbelow = true,
+  splitright = true,
+  termguicolors = true,
+  laststatus = 2, -- Single statusline when set to 3
+  guifont = 'JetBrainsMonoNL Nerd Font:h11', -- font used in GUI neovim
+  cursorline = true,
+  pumblend = 10,
+  winblend = 10,
+  conceallevel = 2,
+  fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]],
+  path = vim.o.path .. '**',
+  colorcolumn = '100',
+}
+
+vim.opt.shortmess:append('c')
+
+for k, v in pairs(options) do
+  vim.opt[k] = v
 end
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- Folding stuff
+vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
--- Set highlight on search
-vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- vim-better-whitespace options
+vim.g.better_whitespace_filetypes_blacklist = {
+  'NvimTree',
+  'toggleterm',
+  'TelescopePrompt',
+  'alpha',
+}
 
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
+-- Enable true colour support
+if vim.fn.has('termguicolors') then
+  vim.o.termguicolors = true
+end
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Indent
--- vim.o.smarttab = true
-vim.opt.cpoptions:append('I')
-vim.o.expandtab = true
--- vim.o.smartindent = true
--- vim.o.autoindent = true
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
-
--- stops line wrapping from being confusing
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-vim.wo.relativenumber = true
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,preview,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.cmd([[
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave  * if &nu                   | set nornu | endif
+]])
 
 -- [[ Disable auto comment on enter ]]
 -- See :help formatoptions
@@ -96,57 +93,58 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.g.netrw_liststyle=0
-vim.g.netrw_banner=0
--- [[ Basic Keymaps ]]
+local setKeymap = vim.keymap.set
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = 'Moves Line Down' })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = 'Moves Line Up' })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Scroll Down' })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Scroll Up' })
-vim.keymap.set("n", "n", "nzzzv", { desc = 'Next Search Result' })
-vim.keymap.set("n", "N", "Nzzzv", { desc = 'Previous Search Result' })
+setKeymap('n', '<C-e>', '<Nop>')
 
-vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = 'Previous buffer' })
-vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = 'Next buffer' })
-vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = 'Last buffer' })
-vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = 'delete buffer' })
+-- Normal mode --
+-- Window nav
+setKeymap('n', '<C-h>', '<C-w>h')
+setKeymap('n', '<C-j>', '<C-w>j')
+setKeymap('n', '<C-k>', '<C-w>k')
+setKeymap('n', '<C-l>', '<C-w>l')
 
--- see help sticky keys on windows
-vim.cmd([[command! W w]])
-vim.cmd([[command! Wq wq]])
-vim.cmd([[command! WQ wq]])
-vim.cmd([[command! Q q]])
+-- Resize with arrows
+setKeymap('n', '<C-[>', ':vertical resize -2<CR>')
+setKeymap('n', '<C-]>', ':vertical resize +2<CR>')
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Naviagate buffers
+setKeymap('n', '<S-l>', ':bnext<CR>')
+setKeymap('n', '<S-h>', ':bprevious<CR>')
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>f', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- Move text up and down
+setKeymap('n', '<A-j>', '<Esc>:m .+1<CR>==gi')
+setKeymap('n', '<A-k>', '<Esc>:m .-2<CR>==gi')
 
+-- Switch between tab sizes 2 and 4
+setKeymap('n', '<leader>t', function()
+  if vim.opt.shiftwidth:get() == 2 then
+    vim.opt.shiftwidth = 4
+    vim.opt.tabstop = 4
+  else
+    vim.opt.shiftwidth = 2
+    vim.opt.tabstop = 2
+  end
+end)
 
--- kickstart.nvim starts you with this. 
--- But it constantly clobbers your system clipboard whenever you delete anything.
+-- Insert --
+-- Press jk fast to enter
+setKeymap('i', 'jk', '<ESC>')
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
+-- Visual --
+-- Stay in indent mode
+setKeymap('v', '<', '<gv')
+setKeymap('v', '>', '>gv')
 
--- You should instead use these keybindings so that they are still easy to use, but dont conflict
-vim.keymap.set("n", '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Yank to clipboard' })
-vim.keymap.set({"v", "x"}, '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Yank to clipboard' })
-vim.keymap.set({"n", "v", "x"}, '<leader>yy', '"+yy', { noremap = true, silent = true, desc = 'Yank line to clipboard' })
-vim.keymap.set({"n", "v", "x"}, '<leader>Y', '"+yy', { noremap = true, silent = true, desc = 'Yank line to clipboard' })
-vim.keymap.set({"n", "v", "x"}, '<C-a>', 'gg0vG$', { noremap = true, silent = true, desc = 'Select all' })
-vim.keymap.set({'n', 'v', 'x'}, '<leader>p', '"+p', { noremap = true, silent = true, desc = 'Paste from clipboard' })
-vim.keymap.set('i', '<C-p>', '<C-r><C-p>+', { noremap = true, silent = true, desc = 'Paste from clipboard from within insert mode' })
-vim.keymap.set("x", "<leader>P", '"_dP', { noremap = true, silent = true, desc = 'Paste over selection without erasing unnamed register' })
+-- Move text up and down
+setKeymap('v', '<A-j>', ':m .+1<CR>==')
+setKeymap('v', '<A-k>', ':m .-2<CR>==')
+setKeymap('v', 'p', '"_dP')
 
+-- Visual Block --
+-- Move text up and down
+setKeymap('x', 'J', ":move '>+1<CR>gv-gv")
+setKeymap('x', 'K', ":move '<-2<CR>gv-gv")
+setKeymap('x', '<A-j>', ":move '>+1<CR>gv-gv")
+setKeymap('x', '<A-k>', ":move '<-2<CR>gv-gv")
 
