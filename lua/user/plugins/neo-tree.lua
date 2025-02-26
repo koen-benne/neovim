@@ -224,7 +224,7 @@ return {
       }
 
       -- Neo tree
-      local highlight = require('user.utils.highlights')
+      local highlight = require('utils.highlights')
       highlight.bg('NeoTreeNormal', '#16161d')
       highlight.bg('NeoTreeFloatBorder', '#16161d')
       highlight.fg_bg('NeoTreeFloatTitle', '#000000', '#957fb8')
