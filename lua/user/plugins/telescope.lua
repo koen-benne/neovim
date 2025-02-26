@@ -1,27 +1,3 @@
--- Telescope is a fuzzy finder that comes with a lot of different things that
--- it can fuzzy find! It's more than just a "file finder", it can search
--- many different aspects of Neovim, your workspace, LSP, and more!
---
--- The easiest way to use telescope, is to start by doing something like:
---  :Telescope help_tags
---
--- After running this command, a window will open up and you're able to
--- type in the prompt window. You'll see a list of help_tags options and
--- a corresponding preview of the help.
---
--- Two important keymaps to use while in telescope are:
---  - Insert mode: <c-/>
---  - Normal mode: ?
---
--- This opens a window that shows you all of the keymaps for the current
--- telescope picker. This is really useful to discover what Telescope can
--- do as well as how to actually do it!
-
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
-
--- Telescope live_grep in git root
--- Function to find the git root directory based on the current buffer's path
 local function find_git_root()
   -- Use the current buffer's path as the starting point for the git search
   local current_file = vim.api.nvim_buf_get_name(0)
@@ -65,53 +41,103 @@ return {
     -- event = "",
     -- ft = "",
     keys = {
-      { "<leader>sM", '<cmd>Telescope notify<CR>', mode = {"n"}, desc = '[S]earch [M]essage', },
-      { "<leader>sp",live_grep_git_root, mode = {"n"}, desc = '[S]earch git [P]roject root', },
+      { "<leader>ss", function() return require('telescope.builtin').builtin() end, mode = {"n"}, desc = '[S]earch [S]elect Telescope', },
+      { "<leader>s.", function() return require('telescope.builtin').oldfiles() end, mode = {"n"}, desc = '[S]earch Recent Files ("." for repeat)', },
+      { ";", function() return require('telescope.builtin').buffers() end, mode = {"n"}, desc = '[ ] Find existing buffers', },
       { "<leader>/", function()
-        -- Slightly advanced example of overriding default behavior and theme
-        -- You can pass additional configuration to telescope to change theme, layout, etc.
         require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
           previewer = false,
         })
       end, mode = {"n"}, desc = '[/] Fuzzily search in current buffer', },
+      { "<leader>sf", function() return require('telescope.builtin').find_files() end, mode = {"n"}, desc = '[S]earch [F]iles', },
+      { "<leader>rg", function() return require('telescope.builtin').live_grep() end, mode = {"n"}, desc = 'Search by [R]ip[G]rep', },
+      { "<leader>sM", '<cmd>Telescope notify<CR>', mode = {"n"}, desc = '[S]earch [M]essage', },
+      { "<leader>sp",live_grep_git_root, mode = {"n"}, desc = '[S]earch git [P]roject root', },
       { "<leader>s/", function()
         require('telescope.builtin').live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
       end, mode = {"n"}, desc = '[S]earch [/] in Open Files' },
-      { "<leader><leader>s", function() return require('telescope.builtin').buffers() end, mode = {"n"}, desc = '[ ] Find existing buffers', },
-      { "<leader>s.", function() return require('telescope.builtin').oldfiles() end, mode = {"n"}, desc = '[S]earch Recent Files ("." for repeat)', },
       { "<leader>sr", function() return require('telescope.builtin').resume() end, mode = {"n"}, desc = '[S]earch [R]esume', },
       { "<leader>sd", function() return require('telescope.builtin').diagnostics() end, mode = {"n"}, desc = '[S]earch [D]iagnostics', },
-      { "<leader>sg", function() return require('telescope.builtin').live_grep() end, mode = {"n"}, desc = '[S]earch by [G]rep', },
       { "<leader>sw", function() return require('telescope.builtin').grep_string() end, mode = {"n"}, desc = '[S]earch current [W]ord', },
-      { "<leader>ss", function() return require('telescope.builtin').builtin() end, mode = {"n"}, desc = '[S]earch [S]elect Telescope', },
-      { "<leader>sf", function() return require('telescope.builtin').find_files() end, mode = {"n"}, desc = '[S]earch [F]iles', },
       { "<leader>sk", function() return require('telescope.builtin').keymaps() end, mode = {"n"}, desc = '[S]earch [K]eymaps', },
       { "<leader>sh", function() return require('telescope.builtin').help_tags() end, mode = {"n"}, desc = '[S]earch [H]elp', },
     },
     -- colorscheme = "",
     load = function (name)
         vim.cmd.packadd(name)
-        vim.cmd.packadd("telescope-fzf-native.nvim")
+        vim.cmd.packadd("telescope-fzy-native.nvim")
         vim.cmd.packadd("telescope-ui-select.nvim")
+        vim.cmd.packadd("telescope-media-files.nvim")
+        vim.cmd.packadd("telescope-file-browser.nvim")
+        vim.cmd.packadd("telescope-undo.nvim")
     end,
     after = function (plugin)
-      require('telescope').setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
+      local telescope = require('telescope')
+      telescope.load_extension('media_files')
+      local icons = require('user.icons')
+
+      telescope.setup {
         defaults = {
-          mappings = {
-            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          winblend = 10,
+
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+          },
+          prompt_prefix = icons.ui.Search .. ' ',
+          selection_caret = '  ',
+          path_display = { 'smart' },
+          initial_mode = 'insert',
+          election_strategy = 'reset',
+          sorting_strategy = 'ascending',
+          layout_strategy = 'horizontal',
+          file_ignore_patterns = { 'node_modules' },
+          border = {},
+          borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+          set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+          color_devicons = true,
+          layout_config = {
+            horizontal = {
+              prompt_position = 'top',
+              preview_width = 0.55,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
           },
         },
-        -- pickers = {}
+
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
+          },
+          media_files = {
+            -- filetypes whitelist
+            filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'mp4', 'webm', 'pdf', 'mkv' },
+            find_cmd = 'fd',
+          },
+          file_browser = {
+            mappings = {
+              ['i'] = {
+                -- your custom insert mode mappings
+              },
+              ['n'] = {
+                -- your custom normal mode mappings
+              },
+            },
           },
         },
       }
