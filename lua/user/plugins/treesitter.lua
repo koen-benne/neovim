@@ -4,19 +4,18 @@ return {
   {
     "nvim-treesitter",
     for_cat = 'general.treesitter',
-    -- cmd = { "" },
     event = "DeferredUIEnter",
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
     load = function (name)
         vim.cmd.packadd(name)
         vim.cmd.packadd("nvim-treesitter-textobjects")
     end,
     after = function (plugin)
-      -- [[ Configure Treesitter ]]
-      -- See `:help nvim-treesitter`
+      vim.g.skip_ts_context_comment_string_module = true
+
       require('nvim-treesitter.configs').setup {
+        sync_install = false,
+        auto_install = false,
+
         highlight = { enable = true, },
         indent = { enable = false, },
         incremental_selection = {
@@ -73,6 +72,16 @@ return {
           },
         },
       }
+
+      require('treesitter-context').setup {
+        max_lines = 3,
+      }
+
+      require('ts_context_commentstring').setup()
+
+      -- Tree-sitter based folding
+      -- vim.opt.foldmethod = 'expr'
+      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     end,
   },
 }

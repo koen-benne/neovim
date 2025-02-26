@@ -80,11 +80,6 @@ local function lsp_keymaps(bufnr)
   end, '[W]orkspace [L]ist Folders')
 end
 
--- local notify_status_ok, notify = pcall(require, "notify")
--- if not notify_status_ok then
---   return
--- end
-
 M.on_attach = function(client, bufnr)
   -- vim.notify(client.name .. " starting...")
   -- TODO: refactor this into a method that checks if string in list

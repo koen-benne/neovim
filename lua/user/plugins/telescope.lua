@@ -77,8 +77,7 @@ return {
     end,
     after = function (plugin)
       local telescope = require('telescope')
-      telescope.load_extension('media_files')
-      local icons = require('user.icons')
+      local icons = require('utils.icons')
 
       telescope.setup {
         defaults = {
@@ -142,9 +141,31 @@ return {
         },
       }
 
-      -- Enable telescope extensions, if they are installed
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
+      telescope.load_extension('media_files')
+      telescope.load_extension('file_browser')
+      telescope.load_extension('projects')
+      telescope.load_extension('undo')
+
+      -- Telescope colors
+      local highlight = require('utils.highlights')
+
+      highlight.fg_bg('TelescopeBorder', '#16161d', '#16161d')
+      highlight.fg_bg('TelescopePromptBorder', '#1a1b26', '#1a1b26')
+
+      highlight.fg_bg('TelescopePromptNormal', '#fff', '#1a1b26')
+      highlight.fg_bg('TelescopePromptPrefix', '#957fb8', '#b1a1b26')
+
+      highlight.bg('TelescopeNormal', '#16161d')
+      highlight.bg('TelescopeMatching', '#b1a1b26')
+      highlight.bg('TelescopeSelectionCaret', '#957fb8')
+      highlight.bg('TelescopeSelection', '#b1a1b26')
+      highlight.bg('TelescopeMultiSelection', '#b1a1b26')
+
+      highlight.fg_bg('TelescopePreviewTitle', '#000000', '#7e9cd8')
+      highlight.fg_bg('TelescopePromptTitle', '#000000', '#957fb8')
+      highlight.fg_bg('TelescopeResultsTitle', '#16161d', '#16161d')
+
+      highlight.bg('TelescopeSelection', '#3b323e')
 
       vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
     end,

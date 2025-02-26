@@ -88,7 +88,6 @@
             lzextras
             nvim-notify
             # snacks-nvim
-            alpha-nvim
             nvim-autopairs
             nvim-ts-autotag
             persistence-nvim
@@ -97,9 +96,10 @@
             promise-async
             dressing-nvim
             nui-nvim
-            project-nvim
           ];
           extra = [
+            alpha-nvim
+            project-nvim
             nvim-web-devicons
             mini-nvim
           ];
