@@ -88,6 +88,7 @@ end
 
 require('lze').load {
   { import = "user.plugins.telescope", },
+  { import = "user.plugins.neo-tree", },
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
   {

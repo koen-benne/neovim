@@ -69,24 +69,15 @@
       # at RUN TIME for plugins. Will be available to PATH within neovim terminal
       # this includes LSPs
       lspsAndRuntimeDeps = {
-        # some categories of stuff.
         general = with pkgs; [
           universal-ctags
           ripgrep
           fd
           imagemagick
         ];
-        # these names are arbitrary.
-        lint = with pkgs; [
-        ];
-        # but you can choose which ones you want
-        # per nvim package you export
         debug = with pkgs; {
           go = [ delve ];
         };
-        # and easily check if they are included in lua
-        format = with pkgs; [
-        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
@@ -137,10 +128,6 @@
       # `:NixCats pawsible` command to see them all
       optionalPlugins = {
         debug = with pkgs.vimPlugins; {
-          # it is possible to add default values.
-          # there is nothing special about the word "default"
-          # but we have turned this subcategory into a default value
-          # via the extraCats section at the bottom of categoryDefinitions.
           default = [
             nvim-dap
             nvim-dap-ui
@@ -149,12 +136,6 @@
           ];
           go = [ nvim-dap-go ];
         };
-        # lint = with pkgs.vimPlugins; [
-        #   nvim-lint
-        # ];
-        # format = with pkgs.vimPlugins; [
-        #   conform-nvim
-        # ];
         markdown = with pkgs.vimPlugins; [
           markdown-preview-nvim
         ];
@@ -184,6 +165,9 @@
             telescope-undo-nvim
             telescope-ui-select-nvim
             telescope-nvim
+          ];
+          neo-tree = with pkgs.vimPlugins; [
+            neo-tree-nvim
           ];
           always = with pkgs.vimPlugins; [
             lazy-lsp-nvim
