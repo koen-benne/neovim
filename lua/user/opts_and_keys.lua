@@ -65,51 +65,30 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave  * if &nu                   | set nornu | endif
 ]])
 
--- [[ Disable auto comment on enter ]]
--- See :help formatoptions
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "remove formatoptions",
-  callback = function()
-    vim.opt.formatoptions:remove({ "c", "r", "o" })
-  end,
-})
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
-
-local setKeymap = vim.keymap.set
-
-setKeymap('n', '<C-e>', '<Nop>')
+vim.keymap.set('n', '<C-e>', '<Nop>')
 
 -- Normal mode --
 -- Window nav
-setKeymap('n', '<C-h>', '<C-w>h')
-setKeymap('n', '<C-j>', '<C-w>j')
-setKeymap('n', '<C-k>', '<C-w>k')
-setKeymap('n', '<C-l>', '<C-w>l')
+vim.keymap.set('n', '<C-h>', '<C-w>h')
+vim.keymap.set('n', '<C-j>', '<C-w>j')
+vim.keymap.set('n', '<C-k>', '<C-w>k')
+vim.keymap.set('n', '<C-l>', '<C-w>l')
 
 -- Resize with arrows
-setKeymap('n', '<C-[>', ':vertical resize -2<CR>')
-setKeymap('n', '<C-]>', ':vertical resize +2<CR>')
+vim.keymap.set('n', '<C-[>', ':vertical resize -2<CR>')
+vim.keymap.set('n', '<C-]>', ':vertical resize +2<CR>')
 
 -- Naviagate buffers
-setKeymap('n', '<S-l>', ':bnext<CR>')
-setKeymap('n', '<S-h>', ':bprevious<CR>')
+vim.keymap.set('n', '<S-l>', ':bnext<CR>')
+vim.keymap.set('n', '<S-h>', ':bprevious<CR>')
 
 -- Move text up and down
-setKeymap('n', '<A-j>', '<Esc>:m .+1<CR>==gi')
-setKeymap('n', '<A-k>', '<Esc>:m .-2<CR>==gi')
+vim.keymap.set('n', '<A-j>', '<Esc>:m .+1<CR>==gi')
+vim.keymap.set('n', '<A-k>', '<Esc>:m .-2<CR>==gi')
 
 -- Switch between tab sizes 2 and 4
-setKeymap('n', '<leader>t', function()
+vim.keymap.set('n', '<leader>t', function()
   if vim.opt.shiftwidth:get() == 2 then
     vim.opt.shiftwidth = 4
     vim.opt.tabstop = 4
@@ -121,22 +100,22 @@ end)
 
 -- Insert --
 -- Press jk fast to enter
-setKeymap('i', 'jk', '<ESC>')
+vim.keymap.set('i', 'jk', '<ESC>')
 
 -- Visual --
 -- Stay in indent mode
-setKeymap('v', '<', '<gv')
-setKeymap('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 -- Move text up and down
-setKeymap('v', '<A-j>', ':m .+1<CR>==')
-setKeymap('v', '<A-k>', ':m .-2<CR>==')
-setKeymap('v', 'p', '"_dP')
+vim.keymap.set('v', '<A-j>', ':m .+1<CR>==')
+vim.keymap.set('v', '<A-k>', ':m .-2<CR>==')
+vim.keymap.set('v', 'p', '"_dP')
 
 -- Visual Block --
 -- Move text up and down
-setKeymap('x', 'J', ":move '>+1<CR>gv-gv")
-setKeymap('x', 'K', ":move '<-2<CR>gv-gv")
-setKeymap('x', '<A-j>', ":move '>+1<CR>gv-gv")
-setKeymap('x', '<A-k>', ":move '<-2<CR>gv-gv")
+vim.keymap.set('x', 'J', ":move '>+1<CR>gv-gv")
+vim.keymap.set('x', 'K', ":move '<-2<CR>gv-gv")
+vim.keymap.set('x', '<A-j>', ":move '>+1<CR>gv-gv")
+vim.keymap.set('x', '<A-k>', ":move '<-2<CR>gv-gv")
 

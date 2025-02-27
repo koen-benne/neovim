@@ -9,6 +9,7 @@ require("lze").register_handlers(require('utils.lze').for_cat)
 require("user.plugins")
 
 require("user.lsp")
+require("user.snacks")
 
 if nixCats('debug') then
   require('user.debug')

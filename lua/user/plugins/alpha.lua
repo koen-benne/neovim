@@ -3,12 +3,6 @@ if not status_ok then
   return
 end
 
-vim.api.nvim_create_autocmd('BufReadPre', {
-  callback = function()
-    require('persistence').setup()
-  end,
-})
-
 local asciiTable = {
   [0] = {
     '⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿',

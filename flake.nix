@@ -86,18 +86,17 @@
           always = [
             lze
             lzextras
-            nvim-notify
-            # snacks-nvim
             nvim-ts-autotag
             sqlite-lua
             plenary-nvim
             promise-async
             dressing-nvim
             nui-nvim
+            snacks-nvim
+            persistence-nvim
           ];
           extra = [
             alpha-nvim
-            persistence-nvim
             project-nvim
             nvim-web-devicons
           ];

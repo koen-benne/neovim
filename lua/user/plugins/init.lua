@@ -1,7 +1,5 @@
 local colorschemeName = nixCats('colorscheme')
 
-vim.cmd.colorscheme(colorschemeName)
-
 if colorschemeName == 'kanagawa' then
   require('kanagawa').setup {
     compile = true, -- enable compiling the colorscheme
@@ -22,36 +20,22 @@ if colorschemeName == 'kanagawa' then
       return {}
     end,
     theme = 'wave', -- Load "wave" theme when 'background' option is not set
-    background = { -- map the value of 'background' option to a theme
-      dark = 'wave', -- try "dragon" !
-      light = 'lotus',
-    },
   }
 end
 
-local ok, notify = pcall(require, "notify")
-if ok then
-  notify.setup({
-    on_open = function(win)
-      vim.api.nvim_win_set_config(win, { focusable = false })
-    end,
-  })
-  vim.notify = notify
-  vim.keymap.set("n", "<Esc>", function()
-      notify.dismiss({ silent = true, })
-  end, { desc = "dismiss notify popup and clear hlsearch" })
-end
+vim.cmd.colorscheme(colorschemeName)
 
 if nixCats('general.extra') then
+  -- require("user.plugins.alpha")
+  require('persistence').setup()
   require("user.plugins.project")
-  require("user.plugins.alpha")
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Lazy loaded plugins
 ---------------------------------------------------------------------------------------------------
 require('lze').load {
-  { import = "user.plugins.telescope", },
+  -- { import = "user.plugins.telescope", },
   { import = "user.plugins.neo-tree", },
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
@@ -84,6 +68,7 @@ require('lze').load {
     for_cat = 'general.always',
     event = "DeferredUIEnter",
     after = function(plugin)
+      require('mini.icons').setup()
       require('mini.ai').setup()
       require('mini.comment').setup()
       -- require('mini.indentscope').setup {
