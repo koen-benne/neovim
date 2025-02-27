@@ -23,7 +23,8 @@ vim.keymap.set('n', '<leader>gf', function() Snacks.picker.git_log_file() end, {
 vim.keymap.set('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 vim.keymap.set('n', '<leader>sB', function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
 vim.keymap.set('n', '<leader>sg', function() Snacks.picker.grep() end, { desc = "Grep" })
-vim.keymap.set('n', '<leader>sw', function() Snacks.picker.grep_word() end, { desc = "Visual selection or word", mode = { "n", "x" } })
+vim.keymap.set('n', '<leader>sw', function() Snacks.picker.grep_word() end, { desc = "Grep word" })
+vim.keymap.set('x', '<leader>sw', function() Snacks.picker.grep_word() end, { desc = "Grep visual selection" })
 -- search
 vim.keymap.set('n', '<leader>s"', function() Snacks.picker.registers() end, { desc = "Registers" })
 vim.keymap.set('n', '<leader>s/', function() Snacks.picker.search_history() end, { desc = "Search History" })
@@ -57,6 +58,6 @@ vim.keymap.set('n', '<leader>sS', function() Snacks.picker.lsp_workspace_symbols
 
 return {
   matcher = {
-    frecency = true,
+    frecency = true
   }
 }
