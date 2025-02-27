@@ -96,7 +96,6 @@
             persistence-nvim
           ];
           extra = [
-            alpha-nvim
             project-nvim
             nvim-web-devicons
           ];
@@ -129,7 +128,6 @@
             nvim-dap
             nvim-dap-ui
             nvim-dap-virtual-text
-            telescope-dap-nvim
           ];
           go = [ nvim-dap-go ];
         };
@@ -154,14 +152,6 @@
             #     lua
             #   ]
             # ))
-          ];
-          telescope = with pkgs.vimPlugins; [
-            telescope-fzy-native-nvim
-            telescope-media-files-nvim
-            telescope-file-browser-nvim
-            telescope-undo-nvim
-            telescope-ui-select-nvim
-            telescope-nvim
           ];
           neo-tree = with pkgs.vimPlugins; [
             neo-tree-nvim

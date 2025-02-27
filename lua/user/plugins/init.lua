@@ -26,7 +26,6 @@ end
 vim.cmd.colorscheme(colorschemeName)
 
 if nixCats('general.extra') then
-  -- require("user.plugins.alpha")
   require('persistence').setup()
   require("user.plugins.project")
 end
@@ -35,7 +34,6 @@ end
 -- Lazy loaded plugins
 ---------------------------------------------------------------------------------------------------
 require('lze').load {
-  -- { import = "user.plugins.telescope", },
   { import = "user.plugins.neo-tree", },
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },

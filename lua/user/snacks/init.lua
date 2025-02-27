@@ -12,6 +12,8 @@ require('snacks').setup {
   statuscolumn = { enabled = true },
   picker = require('user.snacks.picker'),
   words = { enabled = true },
+  rename = { enabled = true },
+  image = { enabled = true },
 }
 
 vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit.open() end, { desc = "Open lazygit" })

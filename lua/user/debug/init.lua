@@ -20,7 +20,6 @@ require('lze').load {
       vim.cmd.packadd(name)
       vim.cmd.packadd("nvim-dap-ui")
       vim.cmd.packadd("nvim-dap-virtual-text")
-      vim.cmd.packadd("telescope-dap.nvim")
     end,
     after = function (plugin)
       local dap = require 'dap'

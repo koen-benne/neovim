@@ -28,7 +28,7 @@ vim.keymap.set('x', '<leader>sw', function() Snacks.picker.grep_word() end, { de
 -- search
 vim.keymap.set('n', '<leader>s"', function() Snacks.picker.registers() end, { desc = "Registers" })
 vim.keymap.set('n', '<leader>s/', function() Snacks.picker.search_history() end, { desc = "Search History" })
-vim.keymap.set('n', '<leader>sa', function() Snacks.picker.autocmds() end, { desc = "Autocmds" })
+vim.keymap.set('n', '<leadergsg', function() Snacks.picker.autocmds() end, { desc = "Autocmds" })
 vim.keymap.set('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 vim.keymap.set('n', '<leader>sc', function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set('n', '<leader>sC', function() Snacks.picker.commands() end, { desc = "Commands" })
