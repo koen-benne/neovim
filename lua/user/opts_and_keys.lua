@@ -53,14 +53,6 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- vim-better-whitespace options
-vim.g.better_whitespace_filetypes_blacklist = {
-  'NvimTree',
-  'toggleterm',
-  'TelescopePrompt',
-  'alpha',
-}
-
 -- Enable true colour support
 if vim.fn.has('termguicolors') then
   vim.o.termguicolors = true

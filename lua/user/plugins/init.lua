@@ -55,7 +55,6 @@ require('lze').load {
   { import = "user.plugins.neo-tree", },
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
-  { import = "user.plugins.gitsigns", },
   {
     "markdown-preview.nvim",
     for_cat = 'general.markdown',
@@ -85,11 +84,24 @@ require('lze').load {
     for_cat = 'general.always',
     event = "DeferredUIEnter",
     after = function(plugin)
+      require('mini.ai').setup()
       require('mini.comment').setup()
-      require('mini.indentscope').setup()
+      -- require('mini.indentscope').setup {
+      --   draw = {
+      --     delay = 50,
+      --   },
+      --   symbol = '│',
+      -- }
       require('mini.surround').setup()
       require('mini.pairs').setup()
-      require('mini.diff').setup()
+      require('mini.git').setup()
+      require('mini.diff').setup {
+        view = {
+          style = 'sign',
+          signs = { add = '┃', change = '┃', delete = '┃' },
+        },
+      }
+      require('mini.trailspace').setup()
     end,
   },
   {
@@ -105,25 +117,34 @@ require('lze').load {
   {
     "lualine.nvim",
     for_cat = 'general.always',
-    -- cmd = { "" },
     event = "DeferredUIEnter",
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
     after = function (plugin)
+      ---Indicators for special modes,
+      ---@return string status
+      local function extra_mode_status()
+        -- recording macros
+        local reg_recording = vim.fn.reg_recording()
+        if reg_recording ~= '' then
+          return ' @' .. reg_recording
+        end
+        -- executing macros
+        local reg_executing = vim.fn.reg_executing()
+        if reg_executing ~= '' then
+          return ' @' .. reg_executing
+        end
+        return ''
+      end
 
       require('lualine').setup({
         options = {
-          icons_enabled = false,
           theme = colorschemeName,
-          component_separators = '|',
-          section_separators = '',
+          path = 1,
         },
+        extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix' },
+        globalstatus = true,
         sections = {
           lualine_c = {
-            {
-              'filename', path = 1, status = true,
-            },
+            { extra_mode_status },
           },
         },
         inactive_sections = {
