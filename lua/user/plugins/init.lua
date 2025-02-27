@@ -25,18 +25,52 @@ end
 
 vim.cmd.colorscheme(colorschemeName)
 
+---Indicators for special modes,
+---@return string status
+local function extra_mode_status()
+  -- recording macros
+  local reg_recording = vim.fn.reg_recording()
+  if reg_recording ~= '' then
+    return ' @' .. reg_recording
+  end
+  -- executing macros
+  local reg_executing = vim.fn.reg_executing()
+  if reg_executing ~= '' then
+    return ' @' .. reg_executing
+  end
+  return ''
+end
+
+require('lualine').setup({
+  globalstatus = true,
+  sections = {
+    lualine_c = {
+      { extra_mode_status },
+    },
+  },
+  options = {
+    theme = colorschemeName,
+    path = 1,
+  },
+  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix' },
+})
+
 if nixCats('general.extra') then
   require('persistence').setup()
-  require("user.plugins.project")
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Lazy loaded plugins
 ---------------------------------------------------------------------------------------------------
 require('lze').load {
-  { import = "user.plugins.neo-tree", },
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
+  { import = "user.plugins.ufo", },
+  {
+    "promise-async",
+    for_cat = 'general.always',
+    dep_of = 'nvim-ufo',
+  },
   {
     "markdown-preview.nvim",
     for_cat = 'general.markdown',
@@ -67,6 +101,7 @@ require('lze').load {
     event = "DeferredUIEnter",
     after = function(plugin)
       require('mini.icons').setup()
+      require("mini.icons").mock_nvim_web_devicons()
       require('mini.ai').setup()
       require('mini.comment').setup()
       -- require('mini.indentscope').setup {
@@ -95,56 +130,6 @@ require('lze').load {
       vim.g.startuptime_event_width = 0
       vim.g.startuptime_tries = 10
       vim.g.startuptime_exe_path = nixCats.packageBinPath
-    end,
-  },
-  {
-    "lualine.nvim",
-    for_cat = 'general.always',
-    event = "DeferredUIEnter",
-    after = function (plugin)
-      ---Indicators for special modes,
-      ---@return string status
-      local function extra_mode_status()
-        -- recording macros
-        local reg_recording = vim.fn.reg_recording()
-        if reg_recording ~= '' then
-          return ' @' .. reg_recording
-        end
-        -- executing macros
-        local reg_executing = vim.fn.reg_executing()
-        if reg_executing ~= '' then
-          return ' @' .. reg_executing
-        end
-        return ''
-      end
-
-      require('lualine').setup({
-        options = {
-          theme = colorschemeName,
-          path = 1,
-        },
-        extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix' },
-        globalstatus = true,
-        sections = {
-          lualine_c = {
-            { extra_mode_status },
-          },
-        },
-        inactive_sections = {
-          lualine_b = {
-            {
-              'filename', path = 3, status = true,
-            },
-          },
-          lualine_x = {'filetype'},
-        },
-        tabline = {
-          lualine_a = { 'buffers' },
-          -- if you use lualine-lsp-progress, I have mine here instead of fidget
-          -- lualine_b = { 'lsp_progress', },
-          lualine_z = { 'tabs' }
-        },
-      })
     end,
   },
   {

@@ -30,7 +30,7 @@ local options = {
   splitbelow = true,
   splitright = true,
   termguicolors = true,
-  laststatus = 2, -- Single statusline when set to 3
+  laststatus = 3, -- Single statusline when set to 3
   guifont = 'JetBrainsMonoNL Nerd Font:h11', -- font used in GUI neovim
   cursorline = true,
   pumblend = 10,
@@ -46,12 +46,6 @@ vim.opt.shortmess:append('c')
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-
--- Folding stuff
-vim.o.foldcolumn = '0' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
 
 -- Enable true colour support
 if vim.fn.has('termguicolors') then

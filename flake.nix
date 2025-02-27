@@ -86,18 +86,11 @@
           always = [
             lze
             lzextras
-            nvim-ts-autotag
             sqlite-lua
             plenary-nvim
-            promise-async
-            dressing-nvim
-            nui-nvim
             snacks-nvim
             persistence-nvim
-          ];
-          extra = [
-            project-nvim
-            nvim-web-devicons
+            lualine-nvim
           ];
         };
         # You can retreive information from the
@@ -153,19 +146,17 @@
             #   ]
             # ))
           ];
-          neo-tree = with pkgs.vimPlugins; [
-            neo-tree-nvim
-          ];
           always = with pkgs.vimPlugins; [
             mini-nvim
             lazy-lsp-nvim
             SchemaStore-nvim
             (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
-            lualine-nvim
             gitsigns-nvim
+            promise-async
           ];
           extra = with pkgs.vimPlugins; [
+            nvim-ufo
             which-key-nvim
             undotree
             vim-startuptime

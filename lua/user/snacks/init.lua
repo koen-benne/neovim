@@ -1,6 +1,6 @@
 require('snacks').setup {
   bigfile = { enabled = true },
-  -- explorer = { enabled = true },
+  explorer = { enabled = true },
   terminal = { enabled = true },
   lazygit = { enabled = true },
   dashboard = require('user.snacks.dashboard'),
@@ -19,3 +19,4 @@ require('snacks').setup {
 vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit.open() end, { desc = "Open lazygit" })
 vim.keymap.set('n', '<C-/>', function() Snacks.terminal.toggle() end, { desc = "Toggle terminal" })
 vim.keymap.set('n', '<leader>gu', function() Snacks.terminal.open('gitui') end, { desc = "Open gitui" })
+
