@@ -72,6 +72,18 @@ require('lze').load {
     dep_of = 'nvim-ufo',
   },
   {
+    "supermaven-nvim",
+    for_cat = 'general.extra',
+    event = "DeferredUIEnter",
+    after = function (plugin)
+      require('supermaven-nvim').setup {
+        keymaps = {
+          accept_suggestion = '<C-C>',
+        },
+      }
+    end,
+  },
+  {
     "markdown-preview.nvim",
     for_cat = 'general.markdown',
     cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle", },

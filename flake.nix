@@ -137,6 +137,7 @@
             promise-async
           ];
           extra = with pkgs.vimPlugins; [
+            supermaven-nvim
             nvim-ufo
             which-key-nvim
             undotree
