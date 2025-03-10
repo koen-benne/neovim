@@ -133,11 +133,11 @@
             SchemaStore-nvim
             (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
-            gitsigns-nvim
             promise-async
           ];
           extra = with pkgs.vimPlugins; [
             supermaven-nvim
+            git-blame-nvim
             nvim-ufo
             which-key-nvim
             undotree

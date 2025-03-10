@@ -84,20 +84,6 @@ require('lze').load {
     end,
   },
   {
-    "markdown-preview.nvim",
-    for_cat = 'general.markdown',
-    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle", },
-    ft = "markdown",
-    keys = {
-      {"<leader>mp", "<cmd>MarkdownPreview <CR>", mode = {"n"}, noremap = true, desc = "markdown preview"},
-      {"<leader>ms", "<cmd>MarkdownPreviewStop <CR>", mode = {"n"}, noremap = true, desc = "markdown preview stop"},
-      {"<leader>mt", "<cmd>MarkdownPreviewToggle <CR>", mode = {"n"}, noremap = true, desc = "markdown preview toggle"},
-    },
-    before = function(plugin)
-      vim.g.mkdp_auto_close = 0
-    end,
-  },
-  {
     "undotree",
     for_cat = 'general.extra',
     cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotreePersistUndo", },
@@ -105,6 +91,37 @@ require('lze').load {
     before = function(_)
       vim.g.undotree_WindowLayout = 1
       vim.g.undotree_SplitWidth = 40
+    end,
+  },
+  {
+    "git-blame.nvim",
+    for_cat = 'general.extra',
+    cmd = {
+      "GitBlameToggle",
+      "GitBlameEnable",
+      "GitBlameDisable",
+      "GitBlameOpenCommitURL",
+      "GitBlameCopySHA",
+      "GitBlameCopyCommitURL",
+      "GitBlameOpenFileUrL",
+      "GitBlameCopyFileURL",
+    },
+    keys = {
+      {"gb", "<cmd>GitBlameToggle <CR>", mode = {"n"}, noremap = true, desc = "Enable git blame"},
+    },
+    before = function (plugin)
+      vim.g.gitblame_enabled = 0
+      vim.g.gitblame_delay = 50
+    end,
+    after = function (plugin)
+      local hl_cursor_line = vim.api.nvim_get_hl(0, { name = "CursorLine" })
+      local hl_comment = vim.api.nvim_get_hl(0, { name = "Comment" })
+      local hl_combined = vim.tbl_extend("force", hl_comment, { bg = hl_cursor_line.bg })
+      vim.api.nvim_set_hl(0, "CursorLineBlame", hl_combined)
+      require('gitblame').setup {
+        enabled = true,
+        highlight_group = "CursorLineBlame",
+      }
     end,
   },
   {
@@ -124,7 +141,6 @@ require('lze').load {
       -- }
       require('mini.surround').setup()
       require('mini.pairs').setup()
-      require('mini.git').setup()
       require('mini.diff').setup {
         view = {
           style = 'sign',
