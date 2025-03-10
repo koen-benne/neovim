@@ -56,6 +56,8 @@ local function lsp_keymaps(bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
+  nmap('<leader>f', vim.diagnostic.open_float, '[F]ix [E]rrors')
+
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
