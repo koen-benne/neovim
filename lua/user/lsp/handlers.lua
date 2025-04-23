@@ -9,10 +9,10 @@ M.setup = function()
     -- show signs
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = icons.get('diagnostics', 'Error'),
-        [vim.diagnostic.severity.WARN] = icons.get('diagnostics', 'Warning'),
-        [vim.diagnostic.severity.HINT] = icons.get('diagnostics', 'Hint'),
-        [vim.diagnostic.severity.INFO] = icons.get('diagnostics', 'Information'),
+        [vim.diagnostic.severity.ERROR] = '󰅚',
+        [vim.diagnostic.severity.WARN] = '󰀪',
+        [vim.diagnostic.severity.HINT] = '󰌶',
+        [vim.diagnostic.severity.INFO] = '󰋽',
       },
     },
     update_in_insert = true,

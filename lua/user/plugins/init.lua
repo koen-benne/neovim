@@ -128,6 +128,7 @@ require('lze').load {
     "mini.nvim",
     for_cat = 'general.always',
     event = "DeferredUIEnter",
+    dep_of = 'lze',
     after = function(plugin)
       require('mini.icons').setup()
       require("mini.icons").mock_nvim_web_devicons()
