@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-  local icons = require('utils.icons')
+  local icons = require('mini.icons')
 
   local config = {
     -- disable virtual text
@@ -9,10 +9,10 @@ M.setup = function()
     -- show signs
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
-        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-        [vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
+        [vim.diagnostic.severity.ERROR] = icons.get('diagnostics', 'Error'),
+        [vim.diagnostic.severity.WARN] = icons.get('diagnostics', 'Warning'),
+        [vim.diagnostic.severity.HINT] = icons.get('diagnostics', 'Hint'),
+        [vim.diagnostic.severity.INFO] = icons.get('diagnostics', 'Information'),
       },
     },
     update_in_insert = true,
