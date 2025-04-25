@@ -63,25 +63,13 @@ end
 -- Lazy loaded plugins
 ---------------------------------------------------------------------------------------------------
 require('lze').load {
-  { import = "user.plugins.treesitter", },
+  { import = "user.plugins.treesitter", dep_of = 'codecompanion.nvim', },
   { import = "user.plugins.completion", },
   { import = "user.plugins.ufo", },
   {
     "promise-async",
     for_cat = 'general.always',
     dep_of = 'nvim-ufo',
-  },
-  {
-    "supermaven-nvim",
-    for_cat = 'general.extra',
-    event = "DeferredUIEnter",
-    after = function (plugin)
-      require('supermaven-nvim').setup {
-        keymaps = {
-          accept_suggestion = '<C-C>',
-        },
-      }
-    end,
   },
   {
     "undotree",
@@ -187,6 +175,79 @@ require('lze').load {
         { "<leader>t_", hidden = true },
         { "<leader>w", group = "[w]orkspace" },
         { "<leader>w_", hidden = true },
+      }
+    end,
+  },
+  {
+    "codecompanion.nvim",
+    for_cat = 'general.extra',
+    event = "DeferredUIEnter", -- We can probably set it to load when running a certain command
+    keys = {
+      { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, noremap = true, silent = true, desc = "CodeCompanion Actions" },
+      { "<leader>a", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, noremap = true, silent = true, desc = "Toggle CodeCompanion Chat" },
+      { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Add to CodeCompanion Chat" },
+    },
+    after = function (plugin)
+      require('codecompanion').setup {
+        strategies = {
+          chat = {
+            adapter = "bonzai",
+            keymaps = {
+              send = {
+                modes = { n = "<CR>", i = "<M-s>" },
+              },
+            },
+          },
+          inline = {
+            adapter = "bonzai",
+          },
+          cmd = {
+            adapter = "bonzai",
+          }
+        },
+        adapters = {
+          bonzai = function()
+             local openai_adapter = require("codecompanion.adapters.openai")
+             return require("codecompanion.adapters").extend("openai_compatible", {
+              name = "bonzai",
+              formatted_name = "Bonzai",
+              env = {
+                url = "https://api.bonzai.iodigital.com",
+                chat_url = "/universal/chat/completions",
+                api_key = "cmd:op read op://Private/Bonzai/credential --no-newline",
+               },
+               headers = {
+                 ["Content-Type"] = "application/json",
+                 ["api-key"] = "${api_key}",
+               },
+               schema = {
+                 model = {
+                   order = 1,
+                   mapping = "parameters",
+                   type = "enum",
+                   desc = "ID of the model to use.",
+                   default = "claude-3-7-sonnet",
+                   choices = {
+                    "gpt-4o",
+                    "gpt-4o-mini",
+                    ["o3-mini"] = { opts = { can_reason = true } },
+                    ["o1"] = { opts = { stream = false } },
+                    ["o1-preview"] = { opts = { stream = true } },
+                    "claude-3-haiku",
+                    "claude-3-5-sonnet",
+                    ["claude-3-7-sonnet"] = { opts = { can_reason = true } },
+                  },
+                },
+                reasoning_effort = vim.deepcopy(openai_adapter.schema.reasoning_effort),
+                temperature = vim.deepcopy(openai_adapter.schema.temperature),
+                top_p = vim.deepcopy(openai_adapter.schema.top_p),
+                stop = vim.deepcopy(openai_adapter.schema.stop),
+                presence_penalty = vim.deepcopy(openai_adapter.schema.presence_penalty),
+                frequency_penalty = vim.deepcopy(openai_adapter.schema.frequency_penalty),
+              },
+            })
+          end,
+        },
       }
     end,
   },

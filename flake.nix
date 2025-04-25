@@ -74,6 +74,7 @@
           ripgrep
           fd
           imagemagick
+          _1password-cli
         ];
       };
 
@@ -136,12 +137,12 @@
             promise-async
           ];
           extra = with pkgs.vimPlugins; [
-            supermaven-nvim
             git-blame-nvim
             nvim-ufo
             which-key-nvim
             undotree
             vim-startuptime
+            codecompanion-nvim
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
             # pkgs.neovimPlugins.hlargs
