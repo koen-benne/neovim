@@ -226,7 +226,7 @@ require('lze').load {
                    mapping = "parameters",
                    type = "enum",
                    desc = "ID of the model to use.",
-                   default = "claude-3-7-sonnet",
+                   default = "gpt-4o",
                    choices = {
                     "gpt-4o",
                     "gpt-4o-mini",
