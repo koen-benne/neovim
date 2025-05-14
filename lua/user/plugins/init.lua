@@ -46,6 +46,7 @@ require('lualine').setup({
   sections = {
     lualine_c = {
       { extra_mode_status },
+      { 'filename' }, -- Show file name in the status line
     },
   },
   options = {
