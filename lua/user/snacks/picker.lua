@@ -3,6 +3,7 @@ vim.keymap.set('n', '<leader>,', function() Snacks.picker.buffers() end, { desc 
 vim.keymap.set('n', '<leader>:', function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set('n', '<leader>n', function() Snacks.picker.notifications() end, { desc = "Notification History" })
 vim.keymap.set('n', '<C-t>', function() Snacks.explorer() end, { desc = "File Explorer" })
+vim.keymap.set('n', '<leader>of', function() Snacks.explorer({hidden = true, ignored = true,}) end, { desc = "Open File in File Explorer" })
 -- Find
 vim.keymap.set('n', ';', function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set('n', '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" })
