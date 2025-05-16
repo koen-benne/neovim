@@ -131,11 +131,13 @@ require('lze').load {
       -- }
       require('mini.surround').setup()
       require('mini.pairs').setup()
-      require('mini.diff').setup {
+      local diff = require('mini.diff')
+      diff.setup {
         view = {
           style = 'sign',
           signs = { add = '┃', change = '┃', delete = '┃' },
         },
+        source = diff.gen_source.none(),
       }
       require('mini.trailspace').setup()
     end,
@@ -220,6 +222,11 @@ require('lze').load {
           cmd = {
             adapter = "bonzai",
           }
+        },
+        display = {
+          diff = {
+            provider = "mini_diff",
+          },
         },
         adapters = {
           bonzai = function()
