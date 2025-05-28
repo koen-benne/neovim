@@ -1,8 +1,6 @@
 local M = {}
 
 M.setup = function()
-  local icons = require('mini.icons')
-
   local config = {
     -- disable virtual text
     virtual_text = false,
