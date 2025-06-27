@@ -73,6 +73,8 @@
           universal-ctags
           ripgrep
           fd
+          git
+          nerd-fonts.jetbrains-mono
           imagemagick
           _1password-cli
         ];
