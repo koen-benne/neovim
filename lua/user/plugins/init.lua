@@ -230,7 +230,7 @@ require('lze').load {
         },
         adapters = {
           bonzai = function()
-            local openai_adapter = require("codecompanion.adapters.openai")
+            local openai_adapter = require("codecompanion.adapters").extend("openai", {});
             return require("codecompanion.adapters").extend("openai_compatible", {
             name = "bonzai",
             formatted_name = "Bonzai",
