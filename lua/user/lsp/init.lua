@@ -44,6 +44,7 @@ require('lze').load {
           typescript = { 'ts_ls', 'eslint' },
           typescriptreact = { 'ts_ls', 'eslint' },
           php = { 'intelephense', 'psalm' },
+          kotlin = { 'kotlin_language_server' },
         },
         prefer_local = true, -- Prefer locally installed servers over nix-shell
         -- Default config passed to all servers to specify on_attach callback and other options.
