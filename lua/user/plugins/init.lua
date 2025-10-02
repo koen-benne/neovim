@@ -186,14 +186,9 @@ require('lze').load {
     for_cat = 'general.extra',
     event = "DeferredUIEnter", -- We can probably set it to load when running a certain command
     keys = {
-      { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, noremap = true, silent = true, desc = "CodeCompanion Actions" },
-      { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, noremap = true, silent = true, desc = "Toggle CodeCompanion Chat" },
-      { "<leader>ce", "<cmd>CodeCompanion /explain<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Explain Code" },
-      { "<leader>co", "<cmd>CodeCompanion /optimize<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Optimize Code" },
-      { "<leader>cf", "<cmd>CodeCompanion /fix<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Fix Code" },
-      { "<leader>ct", "<cmd>CodeCompanion /tests<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Generate Tests" },
-      { "<leader>cs", "<cmd>CodeCompanion /lsp<cr>", mode = { "n" }, noremap = true, silent = true, desc = "Use LSP" },
-      { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" }, noremap = true, silent = true, desc = "Add to CodeCompanion Chat" },
+      { "<C-a>", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "CodeCompanion Actions" },
+      { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "Toggle CodeCompanion Chat" },
+      { "ga", "<cmd>CodeCompanionChat Add<cr>", mode = { "v" }, desc = "Add to CodeCompanion Chat" },
     },
     after = function (plugin)
       -- Create a module-level variable to cache the API key
@@ -227,81 +222,12 @@ require('lze').load {
                 modes = { n = "<CR>", i = "<M-s>" },
               },
             },
-            slash_commands = {
-              ["buffer"] = {
-                callback = "strategies.chat.slash_commands.buffer",
-                description = "Insert open buffers",
-                opts = {
-                  contains_code = true,
-                },
-              },
-              ["file"] = {
-                callback = "strategies.chat.slash_commands.file", 
-                description = "Insert a file",
-                opts = {
-                  contains_code = true,
-                },
-              },
-              ["help"] = {
-                callback = "strategies.chat.slash_commands.help",
-                description = "Show available slash commands",
-              },
-            },
           },
           inline = {
             adapter = "bonzai",
-            slash_commands = {
-              ["explain"] = {
-                description = "Explain how code works",
-                opts = {
-                  system_prompt = "You are an expert programmer. Explain the provided code clearly and concisely, focusing on what it does, how it works, and any important details. Use simple language and provide examples where helpful.",
-                  user_prompt = "Please explain this code:",
-                  contains_code = true,
-                },
-              },
-              ["optimize"] = {
-                description = "Optimize the given code",
-                opts = {
-                  system_prompt = "You are an expert programmer specializing in code optimization. Improve the provided code for performance, readability, and best practices while maintaining functionality. Explain your optimizations.",
-                  user_prompt = "Please optimize this code:",
-                  contains_code = true,
-                },
-              },
-              ["fix"] = {
-                description = "Fix issues in the code",
-                opts = {
-                  system_prompt = "You are an expert programmer specializing in debugging. Analyze the provided code for bugs, errors, or potential issues. Fix them and explain what was wrong and how you fixed it.",
-                  user_prompt = "Please fix any issues in this code:",
-                  contains_code = true,
-                },
-              },
-              ["tests"] = {
-                description = "Generate tests for the code",
-                opts = {
-                  system_prompt = "You are an expert in test-driven development. Generate comprehensive tests for the provided code. Include unit tests, edge cases, and integration tests as appropriate.",
-                  user_prompt = "Please generate tests for this code:",
-                  contains_code = true,
-                },
-              },
-            },
           },
           cmd = {
             adapter = "bonzai",
-            slash_commands = {
-              ["lsp"] = {
-                description = "Use LSP to help with code",
-                opts = {
-                  system_prompt = "You have access to LSP information. Use it to provide accurate code assistance, including type information, documentation, and suggestions.",
-                  user_prompt = "Help me with this code using LSP information:",
-                  contains_code = true,
-                },
-              },
-            },
-          },
-        },
-        display = {
-          diff = {
-            provider = "mini_diff",
           },
         },
         adapters = {
@@ -326,46 +252,45 @@ require('lze').load {
                 },
                 schema = {
                   model = {
-                    order = 1,
                     mapping = "parameters",
                     type = "enum",
                     desc = "ID of the model to use.",
-                    default = "claude-3-7-sonnet", -- Best reasoning model available
+                    default = "claude-3-7-sonnet",
                     choices = {
                       -- OpenAI Models
                       "gpt-4o",
-                      "gpt-4.1", 
+                      "gpt-4.1",
                       "gpt-4o-mini",
                       "gpt-4.1-mini",
                       "gpt-4.1-nano",
                       "gpt-5",
                       "gpt-5-mini",
                       "gpt-5-nano",
-                      
+
                       -- Reasoning Models (o-series)
                       ["o1"] = { opts = { stream = false, can_reason = true } },
                       ["o3"] = { opts = { stream = false, can_reason = true } },
                       ["o3-mini"] = { opts = { stream = false, can_reason = true } },
                       ["o4-mini"] = { opts = { stream = false, can_reason = true } },
-                      
+
                       -- Claude Models (Anthropic)
                       "claude-3-haiku",
                       "claude-3-5-sonnet",
                       "claude-3-7-sonnet",      -- Latest with advanced reasoning
                       "claude-4-sonnet",
                       "claude-4-5-sonnet",
-                      
+
                       -- Vertex AI versions
                       "claude-3-haiku-vertex",
-                      "claude-3-5-sonnet-vertex", 
+                      "claude-3-5-sonnet-vertex",
                       "claude-3-7-sonnet-vertex",
                       "claude-4-sonnet-vertex",
                       "claude-4-5-sonnet-vertex",
-                      
+
                       -- Google Models
                       "gemini-2.5-flash",
                       "gemini-2.5-pro",
-                      
+
                       -- Coding Specialist
                       "codestral-latest",
                     },
@@ -379,7 +304,7 @@ require('lze').load {
                     desc = "Maximum tokens for completion",
                   },
                   temperature = {
-                    order = 3,
+                    order = 2,
                     mapping = "parameters",
                     type = "number",
                     optional = true,
