@@ -303,19 +303,6 @@ require('lze').load {
           diff = {
             provider = "mini_diff",
           },
-          chat = {
-            window = {
-              layout = "vertical",
-              width = 0.45,
-              height = 0.8,
-              relative = "editor",
-              border = "rounded",
-            },
-            intro_message = "Welcome to CodeCompanion! 🚀\n\nType /help for available commands or start chatting about your code.",
-            separator = "---",
-            show_settings = true,
-            show_header = true,
-          },
         },
         adapters = {
           http = {
