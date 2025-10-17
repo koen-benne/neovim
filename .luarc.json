@@ -1,0 +1,33 @@
+{
+  "diagnostics": {
+    "globals": [
+      "vim",
+      "nixCats",
+      "Snacks"
+    ],
+    "disable": [
+      "missing-fields"
+    ]
+  },
+  "workspace": {
+    "library": [
+      "${3rd}/luv/library",
+      "${3rd}/busted/library",
+      "${3rd}/luassert/library"
+    ],
+    "checkThirdParty": false
+  },
+  "completion": {
+    "callSnippet": "Replace"
+  },
+  "format": {
+    "enable": false
+  },
+  "hint": {
+    "enable": true,
+    "paramType": true,
+    "paramName": "All",
+    "semicolon": "SameLine",
+    "arrayIndex": "Enable"
+  }
+}

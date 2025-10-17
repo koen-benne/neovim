@@ -51,16 +51,21 @@ local function lsp_keymaps(bufnr)
 
   nmap('<leader>f', vim.diagnostic.open_float, '[F]ix [E]rrors')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  -- Use Snacks picker if available, otherwise fallback to vim.lsp.buf
+  nmap('gd', function() Snacks.picker.lsp_definitions() end, '[G]oto [D]efinition')
+  nmap('gD', function() Snacks.picker.lsp_declarations() end, '[G]oto [D]eclaration')
+  nmap('gr', function() Snacks.picker.lsp_references() end, '[G]oto [R]eferences')
+  nmap('gI', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementations')
+  nmap('gy', function() Snacks.picker.lsp_type_definitions() end, '[G]oto T[y]pe Definition')
+  -- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  -- nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  -- nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+  -- nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementations')
+  -- nmap('gy', vim.lsp.buf.type_definition, '[G]oto T[y]pe Definition')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
   nmap('<leader>wl', function()

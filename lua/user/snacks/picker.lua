@@ -47,12 +47,7 @@ vim.keymap.set('n', '<leader>sq', function() Snacks.picker.qflist() end, { desc 
 vim.keymap.set('n', '<leader>sR', function() Snacks.picker.resume() end, { desc = "Resume" })
 vim.keymap.set('n', '<leader>su', function() Snacks.picker.undo() end, { desc = "Undo History" })
 vim.keymap.set('n', '<leader>uC', function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
--- LSP
-vim.keymap.set('n', 'gd', function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
-vim.keymap.set('n', 'gD', function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
-vim.keymap.set('n', 'gr', function() Snacks.picker.lsp_references() end, { nowait = true, desc = "References" })
-vim.keymap.set('n', 'gI', function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
-vim.keymap.set('n', 'gy', function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
+-- Non-LSP specific pickers
 vim.keymap.set('n', '<leader>ss', function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 vim.keymap.set('n', '<leader>sS', function() Snacks.picker.lsp_workspace_symbols() end, { desc = "LSP Workspace Symbols" })
 

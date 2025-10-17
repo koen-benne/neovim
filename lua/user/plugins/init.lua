@@ -53,7 +53,7 @@ require('lualine').setup({
     theme = colorschemeName,
     path = 1,
   },
-  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix' },
+  extensions = { 'fugitive', 'fzf', 'quickfix' },
 })
 
 if nixCats('general.extra') then
