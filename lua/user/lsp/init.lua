@@ -45,6 +45,7 @@ require('lze').load {
           typescriptreact = { 'ts_ls', 'eslint' },
           php = { 'intelephense', 'psalm' },
           kotlin = { 'kotlin_language_server' },
+          ruby = { 'ruby_lsp' }
         },
         prefer_local = true, -- Prefer locally installed servers over nix-shell
         -- Default config passed to all servers to specify on_attach callback and other options.
@@ -66,6 +67,7 @@ require('lze').load {
           emmet_ls = require('user.lsp.settings.emmet_ls'),
           intelephense = require('user.lsp.settings.intelephense'),
           nixd = require('user.lsp.settings.nixd'),
+          ruby_lsp = require('user.lsp.settings.ruby_lsp'),
           -- cssmodules_ls = require "user.lsp.settings.cssmodules_ls",
         },
       }
