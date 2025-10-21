@@ -104,4 +104,12 @@ require('lze').load {
       require("dap-go").setup()
     end,
   },
+  {
+    "nvim-dap-ruby",
+    for_cat = 'debug.ruby',
+    on_plugin = { "nvim-dap", },
+    after = function(plugin)
+      require("dap-ruby").setup()
+    end,
+  },
 }

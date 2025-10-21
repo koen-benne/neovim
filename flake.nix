@@ -10,6 +10,10 @@
       url = "github:dmmulroy/ts-error-translator.nvim";
       flake = false;
     };
+    nvim-dap-ruby = {
+      url = "github:suketa/nvim-dap-ruby";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -117,6 +121,9 @@
             nvim-dap-ui
             nvim-dap-virtual-text
           ];
+          ruby = [
+            (mkNvimPlugin inputs.nvim-dap-ruby "nvim-dap-ruby")
+          ];
         };
         general = {
           cmp = with pkgs.vimPlugins; [
@@ -204,6 +211,9 @@
         php = [
           [ "debug" "php" ]
         ];
+        ruby = [
+          [ "debug" "ruby" ]
+        ];
       };
     };
 
@@ -234,6 +244,7 @@
         categories = {
           general = true;
           debug.php = true;
+          debug.ruby = true;
           lspDebugMode = false;
           themer = true;
           colorscheme = "kanagawa";
