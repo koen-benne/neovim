@@ -2,7 +2,8 @@
   description = "Fire Neovim config with NixCats";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # Using master VERY temporarily
+    nixpkgs.url = "github:nixos/nixpkgs/master";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     # Plugins that are not in nixpkgs
