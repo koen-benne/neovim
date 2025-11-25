@@ -143,6 +143,7 @@
             SchemaStore-nvim
             (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
+            nvim-nio
             promise-async
           ];
           extra = with pkgs.vimPlugins; [

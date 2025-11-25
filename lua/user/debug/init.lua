@@ -1,51 +1,9 @@
 require('lze').load {
   {
-    "nvim-dap",
-    -- NOTE: I dont want to figure out mason tools installer for this, so I only enabled debug if nix loaded config
+    "nvim-dap-virtual-text",
     for_cat = 'debug',
-    -- cmd = { "" },
-    -- event = "",
-    -- ft = "",
-    keys = {
-      { "<F5>", desc = "Debug: Start/Continue" },
-      { "<F1>", desc = "Debug: Step Into" },
-      { "<F2>", desc = "Debug: Step Over" },
-      { "<F3>", desc = "Debug: Step Out" },
-      { "<leader>b", desc = "Debug: Toggle Breakpoint" },
-      { "<leader>B", desc = "Debug: Set Breakpoint" },
-      { "<F7>", desc = "Debug: See last session result." },
-    },
-    -- colorscheme = "",
-    load = function(name)
-      vim.cmd.packadd(name)
-      vim.cmd.packadd("nvim-dap-ui")
-      vim.cmd.packadd("nvim-dap-virtual-text")
-    end,
+    on_plugin = { "nvim-dap" },
     after = function (plugin)
-      local dap = require 'dap'
-      local dapui = require 'dapui'
-
-      -- Basic debugging keymaps, feel free to change to your liking!
-      vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-      vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
-      vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
-      vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
-      vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-      vim.keymap.set('n', '<leader>B', function()
-        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-      end, { desc = 'Debug: Set Breakpoint' })
-
-      -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-      vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
-      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-      dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-      -- Dap UI setup
-      -- For more information, see |:help nvim-dap-ui|
-      dapui.setup()
-
       require("nvim-dap-virtual-text").setup {
         enabled = true,                       -- enable this plugin (the default)
         enabled_commands = true,              -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
@@ -72,6 +30,52 @@ require('lze').load {
         virt_text_win_col = nil   -- position the virtual text at a fixed window column (starting from the first text column) ,
         -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
       }
+    end
+  },
+  {
+    "nvim-dap",
+    for_cat = 'debug',
+    -- cmd = { "" },
+    -- event = "",
+    -- ft = "",
+    keys = {
+      { "<F5>", desc = "Debug: Start/Continue" },
+      { "<F1>", desc = "Debug: Step Into" },
+      { "<F2>", desc = "Debug: Step Over" },
+      { "<F3>", desc = "Debug: Step Out" },
+      { "<leader>b", desc = "Debug: Toggle Breakpoint" },
+      { "<leader>B", desc = "Debug: Set Breakpoint" },
+      { "<F7>", desc = "Debug: See last session result." },
+    },
+    load = function(name)
+      vim.cmd.packadd(name)
+      vim.cmd.packadd("nvim-nio")
+      vim.cmd.packadd("nvim-dap-ui")
+    end,
+    after = function (plugin)
+      local dap = require 'dap'
+
+      -- Basic debugging keymaps, feel free to change to your liking!
+      vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
+      vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
+      vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
+      vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
+      vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+      vim.keymap.set('n', '<leader>B', function()
+        dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end, { desc = 'Debug: Set Breakpoint' })
+
+      local dapui = require 'dapui'
+      -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+      vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
+
+      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+      dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+      -- Dap UI setup
+      -- For more information, see |:help nvim-dap-ui|
+      dapui.setup()
 
       if nixCats('debug.php') then
         dap.adapters.php = {
