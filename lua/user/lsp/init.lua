@@ -38,7 +38,7 @@ require('lze').load {
           nix = { 'nil_ls', 'nixd' },
           rust = { 'rust_analyzer' },
           json = { 'jsonls' },
-          css = { 'cssmodules' },
+          css = { 'cssmodules_ls' },
           javascript = { 'ts_ls', 'eslint' },
           javascriptreact = { 'ts_ls', 'eslint' },
           typescript = { 'ts_ls', 'eslint' },
