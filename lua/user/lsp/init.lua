@@ -25,7 +25,29 @@ require('lze').load {
     after = function(plugin)
       require('ts-error-translator').setup()
       require('user.lsp.handlers').setup()
+
+      -- Configure default settings for all LSP servers using new vim.lsp.config API
+      vim.lsp.config('*', {
+        flags = {
+          debounce_text_changes = 150,
+        },
+        on_attach = require('user.lsp.handlers').on_attach,
+        capabilities = require('user.lsp.handlers').capabilities,
+      })
+
+      -- Configure server-specific settings using new vim.lsp.config API
+      vim.lsp.config('lua_ls', require('user.lsp.settings.lua_ls'))
+      vim.lsp.config('rust_analyzer', require('user.lsp.settings.rust'))
+      vim.lsp.config('clangd', require('user.lsp.settings.clangd'))
+      vim.lsp.config('jsonls', require('user.lsp.settings.jsonls'))
+      vim.lsp.config('pyright', require('user.lsp.settings.pyright'))
+      vim.lsp.config('emmet_ls', require('user.lsp.settings.emmet_ls'))
+      vim.lsp.config('intelephense', require('user.lsp.settings.intelephense'))
+      vim.lsp.config('nixd', require('user.lsp.settings.nixd'))
+      vim.lsp.config('ruby_lsp', require('user.lsp.settings.ruby_lsp'))
+
       require('lazy-lsp').setup {
+        use_vim_lsp_config = true, -- Use new Neovim 0.11+ vim.lsp.config API
         excluded_servers = {
           'ccls',
           'zk',
@@ -48,28 +70,6 @@ require('lze').load {
           ruby = { 'ruby_lsp' }
         },
         prefer_local = true, -- Prefer locally installed servers over nix-shell
-        -- Default config passed to all servers to specify on_attach callback and other options.
-        default_config = {
-          flags = {
-            debounce_text_changes = 150,
-          },
-          on_attach = require('user.lsp.handlers').on_attach,
-          capabilities = require('user.lsp.handlers').capabilities,
-        },
-        -- Override config for specific servers that will passed down to lspconfig setup.
-        -- Note that the default_config will be merged with this specific configuration so you don't need to specify everything twice.
-        configs = {
-          lua_ls = require('user.lsp.settings.lua_ls'),
-          rust_analyzer = require('user.lsp.settings.rust'),
-          clangd = require('user.lsp.settings.clangd'),
-          jsonls = require('user.lsp.settings.jsonls'),
-          pyright = require('user.lsp.settings.pyright'),
-          emmet_ls = require('user.lsp.settings.emmet_ls'),
-          intelephense = require('user.lsp.settings.intelephense'),
-          nixd = require('user.lsp.settings.nixd'),
-          ruby_lsp = require('user.lsp.settings.ruby_lsp'),
-          -- cssmodules_ls = require "user.lsp.settings.cssmodules_ls",
-        },
       }
     end
   }
