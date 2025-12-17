@@ -92,6 +92,9 @@ vim.keymap.set('n', '<leader>t', function()
   end
 end)
 
+-- Remove trailing whitespace
+vim.keymap.set('n', '<leader>tw', function() require('mini.trailspace').trim() end, { desc = 'Remove trailing whitespace' })
+
 -- Insert --
 -- Press jk fast to enter
 vim.keymap.set('i', 'jk', '<ESC>')
