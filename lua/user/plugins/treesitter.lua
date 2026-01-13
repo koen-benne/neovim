@@ -5,13 +5,12 @@ return {
     "nvim-treesitter",
     for_cat = 'general.treesitter',
     event = "DeferredUIEnter",
-    load = function (name)
-        vim.cmd.packadd(name)
-        vim.cmd.packadd("nvim-treesitter-context")
-        vim.cmd.packadd("nvim-treesitter-textobjects")
-        vim.cmd.packadd("nvim-ts-context-commentstring")
-    end,
     after = function (plugin)
+      -- Load dependent plugins AFTER nvim-treesitter is loaded
+      vim.cmd.packadd("nvim-treesitter-context")
+      vim.cmd.packadd("nvim-treesitter-textobjects")
+      vim.cmd.packadd("nvim-ts-context-commentstring")
+
       vim.g.skip_ts_context_comment_string_module = true
 
       require('nvim-treesitter.configs').setup {
