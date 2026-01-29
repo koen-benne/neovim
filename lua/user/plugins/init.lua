@@ -67,6 +67,7 @@ require('lze').load {
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
   { import = "user.plugins.ufo", },
+  { import = "user.plugins.oil", },
   {
     "promise-async",
     for_cat = 'general.always',

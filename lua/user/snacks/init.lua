@@ -1,6 +1,6 @@
 require('snacks').setup {
   bigfile = { enabled = true },
-  explorer = { enabled = true },
+  explorer = { enabled = false },
   lazygit = { enabled = true },
   dashboard = require('user.snacks.dashboard'),
   indent = { enabled = true },

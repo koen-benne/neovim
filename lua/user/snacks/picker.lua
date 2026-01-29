@@ -2,8 +2,6 @@ vim.keymap.set('n', '<leader><space>', function() Snacks.picker.smart() end, { d
 vim.keymap.set('n', '<leader>,', function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set('n', '<leader>:', function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set('n', '<leader>n', function() Snacks.picker.notifications() end, { desc = "Notification History" })
-vim.keymap.set('n', '<C-t>', function() Snacks.explorer() end, { desc = "File Explorer" })
-vim.keymap.set('n', '<leader>of', function() Snacks.explorer({hidden = true, ignored = true,}) end, { desc = "Open File in File Explorer" })
 -- Find
 vim.keymap.set('n', ';', function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set('n', '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" })
@@ -61,26 +59,5 @@ return {
   matcher = {
     frecency = true
   },
-  sources = {
-    explorer = {
-      auto_close = true,
-      jump = { close = true },
-      layout = {
-        preset = "default",
-        cycle = false,
-        preview = false,
-        layout = {
-          width = 0.5,
-          min_width = 40,
-        }
-      },
-      win = {
-        list = {
-          keys = {
-          },
-        },
-      },
-    },
-  }
 }
 

@@ -146,6 +146,8 @@
             nvim-lspconfig
             nvim-nio
             promise-async
+            oil-nvim
+            oil-git-status-nvim
           ];
           extra = with pkgs.vimPlugins; [
             git-blame-nvim
