@@ -41,6 +41,7 @@ local function extra_mode_status()
   return ''
 end
 
+require("user.plugins.oil")
 require('lualine').setup({
   globalstatus = true,
   sections = {
@@ -60,6 +61,7 @@ if nixCats('general.extra') then
   require('persistence').setup()
 end
 
+
 ---------------------------------------------------------------------------------------------------
 -- Lazy loaded plugins
 ---------------------------------------------------------------------------------------------------
@@ -67,7 +69,6 @@ require('lze').load {
   { import = "user.plugins.treesitter", },
   { import = "user.plugins.completion", },
   { import = "user.plugins.ufo", },
-  { import = "user.plugins.oil", },
   {
     "promise-async",
     for_cat = 'general.always',

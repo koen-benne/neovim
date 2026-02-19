@@ -2,6 +2,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Disable netrw to let oil.nvim handle directory browsing
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local options = {
   backup = false,
   clipboard = 'unnamedplus',

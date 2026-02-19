@@ -13,8 +13,11 @@ require("lze").register_handlers(require('utils.lze').for_cat)
 -- NOTE: general plugins
 require("user.plugins")
 
-require("user.lsp")
+-- NOTE: snacks plugins
 require("user.snacks")
+
+-- NOTE: LSP plugins
+require("user.lsp")
 
 if nixCats('debug') then
   require('user.debug')

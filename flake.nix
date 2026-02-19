@@ -96,6 +96,7 @@
             snacks-nvim
             persistence-nvim
             lualine-nvim
+            oil-nvim
           ];
         };
         # You can retreive information from the
@@ -146,8 +147,6 @@
             nvim-lspconfig
             nvim-nio
             promise-async
-            oil-nvim
-            oil-git-status-nvim
           ];
           extra = with pkgs.vimPlugins; [
             git-blame-nvim
