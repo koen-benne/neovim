@@ -73,10 +73,6 @@ vim.keymap.set('n', '<C-j>', '<C-w>j')
 vim.keymap.set('n', '<C-k>', '<C-w>k')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
 
--- Resize with arrows
-vim.keymap.set('n', '<C-[>', ':vertical resize -2<CR>')
-vim.keymap.set('n', '<C-]>', ':vertical resize +2<CR>')
-
 -- Naviagate buffers
 vim.keymap.set('n', '<S-l>', ':bnext<CR>')
 vim.keymap.set('n', '<S-h>', ':bprevious<CR>')
@@ -119,4 +115,12 @@ vim.keymap.set('x', 'J', ":move '>+1<CR>gv-gv")
 vim.keymap.set('x', 'K', ":move '<-2<CR>gv-gv")
 vim.keymap.set('x', '<A-j>', ":move '>+1<CR>gv-gv")
 vim.keymap.set('x', '<A-k>', ":move '<-2<CR>gv-gv")
+
+-- Highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("plugin.highlight_yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
 
