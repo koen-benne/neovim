@@ -1,9 +1,9 @@
 vim.keymap.set('n', '<leader><space>', function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
 vim.keymap.set('n', '<leader>,', function() Snacks.picker.buffers() end, { desc = "Buffers" })
+vim.keymap.set('n', '<leader>sb', function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set('n', '<leader>:', function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set('n', '<leader>n', function() Snacks.picker.notifications() end, { desc = "Notification History" })
 -- Find
-vim.keymap.set('n', ';', function() Snacks.picker.buffers() end, { desc = "Buffers" })
 vim.keymap.set('n', '<leader>fc', function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { desc = "Find Config File" })
 vim.keymap.set('n', '<leader>sf', function() Snacks.picker.files() end, { desc = "Find Files" })
 vim.keymap.set('n', '<leader>fg', function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
@@ -18,7 +18,6 @@ vim.keymap.set('n', '<leader>gS', function() Snacks.picker.git_stash() end, { de
 vim.keymap.set('n', '<leader>gd', function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
 vim.keymap.set('n', '<leader>gf', function() Snacks.picker.git_log_file() end, { desc = "Git Log File" })
 -- Grep
-vim.keymap.set('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 vim.keymap.set('n', 'rg', function() Snacks.picker.grep() end, { desc = "Grep" })
 vim.keymap.set('n', '<leader>sB', function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
 vim.keymap.set('n', '<leader>sw', function() Snacks.picker.grep_word() end, { desc = "Grep word" })
@@ -27,7 +26,6 @@ vim.keymap.set('x', '<leader>sw', function() Snacks.picker.grep_word() end, { de
 vim.keymap.set('n', '<leader>s"', function() Snacks.picker.registers() end, { desc = "Registers" })
 vim.keymap.set('n', '<leader>s/', function() Snacks.picker.search_history() end, { desc = "Search History" })
 vim.keymap.set('n', '<leadergsg', function() Snacks.picker.autocmds() end, { desc = "Autocmds" })
-vim.keymap.set('n', '<leader>sb', function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 vim.keymap.set('n', '<leader>sc', function() Snacks.picker.command_history() end, { desc = "Command History" })
 vim.keymap.set('n', '<leader>sC', function() Snacks.picker.commands() end, { desc = "Commands" })
 vim.keymap.set('n', '<leader>sd', function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
