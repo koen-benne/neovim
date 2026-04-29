@@ -77,7 +77,7 @@ require('lze').load {
       -- For more information, see |:help nvim-dap-ui|
       dapui.setup()
 
-      if nixCats('debug.php') then
+      if nixInfo(false, "settings", "cats", "debug") then
         dap.adapters.php = {
           type = "executable",
           command = "node",

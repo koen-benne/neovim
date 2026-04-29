@@ -1,4 +1,4 @@
-if nixCats('lspDebugMode') then
+if nixInfo(false, "info", "lspDebugMode") then
   vim.lsp.set_log_level("debug")
 end
 
@@ -7,17 +7,17 @@ require('lze').load {
   -- which Neovim 0.11+ picks up automatically. We do NOT call require('lspconfig').
   {
     "nvim-lspconfig",
-    for_cat = 'general.always',
+    for_cat = 'general',
     event = "FileType",
   },
   {
     "SchemaStore.nvim",
-    for_cat = 'general.always',
+    for_cat = 'general',
     event = "FileType",
   },
   {
     "ts-error-translator.nvim",
-    for_cat = 'general.always',
+    for_cat = 'general',
     event = "FileType",
     after = function()
       require('ts-error-translator').setup()

@@ -6,7 +6,7 @@ return {
       },
       signatureHelp = { enabled = true },
       diagnostics = {
-        globals = { 'nixCats', 'vim' },
+        globals = { 'nixInfo', 'vim' },
         disable = { 'missing-fields' },
       },
       workspace = {

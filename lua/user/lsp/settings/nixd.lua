@@ -2,12 +2,8 @@ local nixd = {
   settings = {
     nixd = {
       nixpkgs = {
-        -- nixd requires some configuration in flake based configs.
-        -- luckily, the nixCats plugin is here to pass whatever we need!
-        -- we passed this in via the `extra` table in our packageDefinitions
-        -- for additional configuration options, refer to:
-        -- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
-        expr = [[import (builtins.getFlake "]] .. nixCats.extra("nixdExtras.nixpkgs") .. [[") { }   ]],
+        -- nixd requires the nixpkgs path. We pass it via info.nixdExtras.nixpkgs in module.nix.
+        expr = [[import (builtins.getFlake "]] .. nixInfo("", "info", "nixdExtras", "nixpkgs") .. [[") { }]],
       },
       formatting = {
         command = { "nixfmt" }
@@ -21,20 +17,22 @@ local nixd = {
   }
 }
 
-if nixCats.extra("nixdExtras.flake-path") then
-  local flakePath = nixCats.extra("nixdExtras.flake-path")
-  if nixCats.extra("nixdExtras.systemCFGname") then
-    -- (builtins.getFlake "<path_to_system_flake>").nixosConfigurations."<name>".options
+local flakePath = nixInfo(nil, "info", "nixdExtras", "flake-path")
+if flakePath then
+  local systemCFGname = nixInfo(nil, "info", "nixdExtras", "systemCFGname")
+  if systemCFGname then
+    nixd.settings.nixd.options = nixd.settings.nixd.options or {}
     nixd.settings.nixd.options.nixos = {
-      expr = [[(builtins.getFlake "]] .. flakePath ..  [[").nixosConfigurations."]] ..
-        nixCats.extra("nixdExtras.systemCFGname") .. [[".options]]
+      expr = [[(builtins.getFlake "]] .. flakePath .. [[").nixosConfigurations."]] ..
+        systemCFGname .. [[".options]]
     }
   end
-  if nixCats.extra("nixdExtras.homeCFGname") then
-    -- (builtins.getFlake "<path_to_system_flake>").homeConfigurations."<name>".options
+  local homeCFGname = nixInfo(nil, "info", "nixdExtras", "homeCFGname")
+  if homeCFGname then
+    nixd.settings.nixd.options = nixd.settings.nixd.options or {}
     nixd.settings.nixd.options["home-manager"] = {
-      expr = [[(builtins.getFlake "]] .. flakePath .. [[").homeConfigurations."]]
-        .. nixCats.extra("nixdExtras.homeCFGname") .. [[".options]]
+      expr = [[(builtins.getFlake "]] .. flakePath .. [[").homeConfigurations."]] ..
+        homeCFGname .. [[".options]]
     }
   end
 end

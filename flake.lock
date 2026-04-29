@@ -1,37 +1,22 @@
 {
   "nodes": {
-    "nixCats": {
-      "locked": {
-        "lastModified": 1770584904,
-        "narHash": "sha256-9Zaz8lbKF2W9pwXZEnbiGsicHdBoU+dHt3Wv3mCJoZ8=",
-        "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
-        "rev": "538fdde784d2909700d97a8ef307783b33a86fb1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "BirdeeHub",
-        "repo": "nixCats-nvim",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771508936,
-        "narHash": "sha256-za6LCCq9JXwfIvtlLLFY8uHzELHTCsv0LEs9PF3uH80=",
+        "lastModified": 1777270315,
+        "narHash": "sha256-yKB4G6cKsQsWN7M6rZGk6gkJPDNPIzT05y4qzRyCDlI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "09ac1a4dd614f93d8588def74847f810cc9b329c",
+        "rev": "6368eda62c9775c38ef7f714b2555a741c20c72d",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "master",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
-    "nvim-dap-ruby": {
+    "plugins-nvim-dap-ruby": {
       "flake": false,
       "locked": {
         "lastModified": 1752006624,
@@ -47,15 +32,7 @@
         "type": "github"
       }
     },
-    "root": {
-      "inputs": {
-        "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs",
-        "nvim-dap-ruby": "nvim-dap-ruby",
-        "ts-error-translator-nvim": "ts-error-translator-nvim"
-      }
-    },
-    "ts-error-translator-nvim": {
+    "plugins-ts-error-translator-nvim": {
       "flake": false,
       "locked": {
         "lastModified": 1767484144,
@@ -68,6 +45,34 @@
       "original": {
         "owner": "dmmulroy",
         "repo": "ts-error-translator.nvim",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "plugins-nvim-dap-ruby": "plugins-nvim-dap-ruby",
+        "plugins-ts-error-translator-nvim": "plugins-ts-error-translator-nvim",
+        "wrappers": "wrappers"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777453571,
+        "narHash": "sha256-PXooKeOxD+7UrN7IxC3Rmqp/2gB1B4mZXeGPd9xeYL4=",
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
+        "rev": "472d261085424d6c359e3f908343c2d354627db3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BirdeeHub",
+        "repo": "nix-wrapper-modules",
         "type": "github"
       }
     }

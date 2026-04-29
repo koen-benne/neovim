@@ -1,4 +1,4 @@
-local colorschemeName = nixCats('colorscheme')
+local colorschemeName = nixInfo("kanagawa", "settings", "colorscheme")
 
 if colorschemeName == 'kanagawa' then
   require('kanagawa').setup {
@@ -57,7 +57,7 @@ require('lualine').setup({
   extensions = { 'fugitive', 'fzf', 'quickfix' },
 })
 
-if nixCats('general.extra') then
+if nixInfo(false, "settings", "cats", "general") then
   require('persistence').setup()
 end
 
@@ -71,12 +71,12 @@ require('lze').load {
   { import = "user.plugins.ufo", },
   {
     "promise-async",
-    for_cat = 'general.always',
+    for_cat = 'general',
     dep_of = 'nvim-ufo',
   },
   {
     "undotree",
-    for_cat = 'general.extra',
+    for_cat = 'general',
     cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotreePersistUndo", },
     keys = { { "<leader>U", "<cmd>UndotreeToggle<CR>", mode = { "n" }, desc = "Undo Tree" }, },
     before = function(_)
@@ -86,7 +86,7 @@ require('lze').load {
   },
   {
     "git-blame.nvim",
-    for_cat = 'general.extra',
+    for_cat = 'general',
     cmd = {
       "GitBlameToggle",
       "GitBlameEnable",
@@ -117,7 +117,7 @@ require('lze').load {
   },
   {
     "mini.nvim",
-    for_cat = 'general.always',
+    for_cat = 'general',
     event = "DeferredUIEnter",
     dep_of = 'lze',
     after = function(plugin)
@@ -146,17 +146,17 @@ require('lze').load {
   },
   {
     "vim-startuptime",
-    for_cat = 'general.extra',
+    for_cat = 'general',
     cmd = { "StartupTime" },
     before = function(_)
       vim.g.startuptime_event_width = 0
       vim.g.startuptime_tries = 10
-      vim.g.startuptime_exe_path = nixCats.packageBinPath
+      vim.g.startuptime_exe_path = nixInfo(vim.v.progpath, "progpath")
     end,
   },
   {
     "which-key.nvim",
-    for_cat = 'general.extra',
+    for_cat = 'general',
     event = "DeferredUIEnter",
     after = function (plugin)
       require('which-key').setup({

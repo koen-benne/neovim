@@ -1,5 +1,5 @@
 local function faster_get_path(name)
-  local path = vim.tbl_get(package.loaded, "nixCats", "pawsible", "allPlugins", "opt", name)
+  local path = nixInfo(nil, "plugins", "lazy", name) or nixInfo(nil, "plugins", "start", name)
   if path then
     vim.cmd.packadd(name)
     return path
@@ -17,7 +17,7 @@ local load_w_after_plugin = require('lzextras').make_load_with_afters({ "plugin"
 return {
   {
     "luasnip",
-    for_cat = 'general.cmp',
+    for_cat = 'general',
     dep_of = { "blink.cmp" },
     after = function (plugin)
       local luasnip = require 'luasnip'
@@ -35,10 +35,9 @@ return {
   },
   {
     "blink.cmp",
-    for_cat = 'general.cmp',
+    for_cat = 'general',
     -- cmd = { "" },
     event = { "DeferredUIEnter" },
-    dep_of = { "lazy-lsp.nvim" },
     on_require = { "cmp" },
     -- ft = "",
     -- keys = "",

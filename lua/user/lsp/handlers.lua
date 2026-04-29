@@ -96,14 +96,14 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- This is for UFO
-if nixCats('general.extra') then
+if nixInfo(false, "settings", "cats", "general") then
   capabilities.textDocument.foldingRange = {
       dynamicRegistration = false,
       lineFoldingOnly = true
   }
 end
 
-if nixCats('general.cmp') then
+if nixInfo(false, "settings", "cats", "general") then
   M.capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 end
 
