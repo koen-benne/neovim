@@ -1,5 +1,4 @@
 return {
-  cmd = { 'nix-shell', '-p', 'emmet-ls', '--run', "'emmet-ls --stdio'" },
   filetypes = {
     'html',
     'css',

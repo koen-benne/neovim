@@ -82,6 +82,29 @@
           nerd-fonts.jetbrains-mono
           imagemagick
           _1password-cli
+          # LSP servers
+          # React / JS / TS
+          typescript-language-server
+          vscode-langservers-extracted # eslint, jsonls, cssls, htmlls
+          emmet-ls
+          # Go
+          gopls
+          # Nix
+          nixd
+          nixfmt-rfc-style
+          # Lua
+          lua-language-server
+          # Rust
+          rust-analyzer
+          # Python
+          basedpyright
+          ruff
+          # Bash
+          bash-language-server
+          # Fish
+          fish-lsp
+          # PHP
+          intelephense
         ];
       };
 
@@ -141,7 +164,6 @@
           ];
           always = with pkgs.vimPlugins; [
             mini-nvim
-            lazy-lsp-nvim
             SchemaStore-nvim
             (mkNvimPlugin inputs.ts-error-translator-nvim "ts-error-translator.nvim")
             nvim-lspconfig
