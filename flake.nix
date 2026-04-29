@@ -28,7 +28,7 @@
     in
     {
       overlays = {
-        neovim = final: prev: { neovim = wrapper.config.wrap { pkgs = final; }; };
+        neovim = final: prev: { neovim-personal = wrapper.config.wrap { pkgs = final; }; };
         default = self.overlays.neovim;
       };
 
@@ -45,23 +45,6 @@
           default = self.packages.${system}.neovim;
         }
       );
-
-      nixosModules = {
-        default = self.nixosModules.neovim;
-        neovim = wrappers.lib.mkInstallModule {
-          name = "neovim";
-          value = module;
-        };
-      };
-
-      homeModules = {
-        default = self.homeModules.neovim;
-        neovim = wrappers.lib.mkInstallModule {
-          name = "neovim";
-          value = module;
-          loc = [ "home" "packages" ];
-        };
-      };
 
       devShells = forAllSystems (
         system:
