@@ -9,6 +9,10 @@ inputs:
   # Shell aliases
   config.settings.aliases = [ "nv" ];
 
+  # Disable ruby host — we don't use ruby remote plugins, and the nix ruby
+  # env interferes with project-local ruby tooling (e.g. ruby-lsp via direnv)
+  config.hosts.ruby.nvim-host.enable = false;
+
   # Allow querying which top-level specs are enabled from lua:
   # nixInfo(false, "settings", "cats", "general")
   options.settings.cats = lib.mkOption {
