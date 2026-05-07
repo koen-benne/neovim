@@ -78,9 +78,7 @@ return {
         require('vim.treesitter').select_range({ parent = true })
       end, { desc = 'Treesitter: Shrink selection' })
 
-      require('treesitter-context').setup {
-        separator = "─",
-      }
+      require('treesitter-context').setup {}
 
       require('ts_context_commentstring').setup()
 
