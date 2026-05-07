@@ -14,7 +14,7 @@ end)
 return {
   {
     "nvim-ufo",
-    for_cat = 'general.extra',
+    for_cat = 'general',
     event = "BufRead",
     after = function (plugin)
       require('ufo').setup {

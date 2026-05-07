@@ -110,7 +110,7 @@ require('lze').load {
   },
   {
     "nvim-dap-ruby",
-    for_cat = 'debug.ruby',
+    for_cat = 'debug',
     on_plugin = { "nvim-dap", },
     after = function(plugin)
       require("dap-ruby").setup()

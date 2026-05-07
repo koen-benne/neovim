@@ -3,8 +3,8 @@
 return {
   {
     "nvim-treesitter",
-    for_cat = 'general.treesitter',
-    event = "DeferredUIEnter",
+    for_cat = 'general',
+    event = { "DeferredUIEnter", "BufReadPost" },
     load = function(name)
       vim.cmd.packadd(name)
     end,
@@ -79,7 +79,7 @@ return {
       end, { desc = 'Treesitter: Shrink selection' })
 
       require('treesitter-context').setup {
-        max_lines = 3,
+        separator = "─",
       }
 
       require('ts_context_commentstring').setup()
