@@ -5,20 +5,10 @@ require('oil').setup({
   default_file_explorer = true,
   columns = {
     "icon",
+    "git_status",
   },
   delete_to_trash = true,
   skip_confirm_for_simple_edits = true,
-  git = {
-    add = function(path)
-      return vim.fn.system({ "git", "add", "--", path })
-    end,
-    mv = function(src_path, dest_path)
-      return vim.fn.system({ "git", "mv", "--", src_path, dest_path })
-    end,
-    rm = function(path)
-      return vim.fn.system({ "git", "rm", "--", path })
-    end,
-  },
   lsp_file_methods = {
     enabled = true,
     timeout_ms = 1000,
