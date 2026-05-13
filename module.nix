@@ -79,7 +79,7 @@ inputs:
       snacks-nvim
       persistence-nvim
       lualine-nvim
-      oil-nvim
+      config.nvim-lib.neovimPlugins.canola-nvim
       # Colorscheme (resolved from settings.colorscheme)
       (builtins.getAttr config.settings.colorscheme {
         "onedark"          = onedark-nvim;

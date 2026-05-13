@@ -16,6 +16,23 @@
         "type": "github"
       }
     },
+    "plugins-canola-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778344056,
+        "narHash": "sha256-NspywHVDp6c7Zw4b2M41OuULVlhGtGI0tj8LxP3x7SM=",
+        "owner": "barrettruth",
+        "repo": "canola.nvim",
+        "rev": "3838f1380e9aeea0597a80beb6ab28da73e38525",
+        "type": "github"
+      },
+      "original": {
+        "owner": "barrettruth",
+        "ref": "canola",
+        "repo": "canola.nvim",
+        "type": "github"
+      }
+    },
     "plugins-nvim-dap-ruby": {
       "flake": false,
       "locked": {
@@ -51,6 +68,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "plugins-canola-nvim": "plugins-canola-nvim",
         "plugins-nvim-dap-ruby": "plugins-nvim-dap-ruby",
         "plugins-ts-error-translator-nvim": "plugins-ts-error-translator-nvim",
         "wrappers": "wrappers"

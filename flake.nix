@@ -9,6 +9,10 @@
     };
 
     # Plugins not in nixpkgs
+    plugins-canola-nvim = {
+      url = "github:barrettruth/canola.nvim/canola";
+      flake = false;
+    };
     plugins-ts-error-translator-nvim = {
       url = "github:dmmulroy/ts-error-translator.nvim";
       flake = false;
