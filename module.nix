@@ -80,6 +80,7 @@ inputs:
       persistence-nvim
       lualine-nvim
       config.nvim-lib.neovimPlugins.canola-nvim
+      fff-nvim
       # Colorscheme (resolved from settings.colorscheme)
       (builtins.getAttr config.settings.colorscheme {
         "onedark"          = onedark-nvim;

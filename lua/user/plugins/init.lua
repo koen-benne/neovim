@@ -42,6 +42,7 @@ local function extra_mode_status()
 end
 
 require("user.plugins.oil")
+require("user.plugins.fff")
 require('lualine').setup({
   globalstatus = true,
   sections = {

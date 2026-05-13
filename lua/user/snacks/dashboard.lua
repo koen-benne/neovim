@@ -14,14 +14,14 @@ return {
     -- When using a function, the `items` argument are the default keymaps.
     ---@type snacks.dashboard.Item[]
     keys = {
-      { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-      { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-      { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-      { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-      { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-      { icon = " ", key = "l", desc = "Restore Session", action = ":lua require'persistence'.load({ last = true })" },
+      { icon = " ", key = "f", desc = "Find File", action = ":lua require('fff').find_files()" },
+      { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+      { icon = " ", key = "g", desc = "Find Text", action = ":lua require('fff').live_grep()" },
+      { icon = " ", key = "r", desc = "Recent Files", action = ":lua require('fff').find_files()" },
+      { icon = " ", key = "c", desc = "Config", action = ":lua require('fff').find_files_in_dir(vim.fn.stdpath('config'))" },
+      { icon = " ", key = "l", desc = "Restore Session", action = ":lua require'persistence'.load({ last = true })" },
       { icon = "󰒲 ", key = "C", desc = "NixCats", action = ":NixCats pawsible" },
-      { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+      { icon = " ", key = "q", desc = "Quit", action = ":qa" },
     },
     -- Used by the `header` section
     header = [[
