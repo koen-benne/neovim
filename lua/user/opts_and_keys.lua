@@ -43,6 +43,7 @@ local options = {
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]],
   path = vim.o.path .. '**',
   colorcolumn = '100',
+  winborder = 'rounded'
 }
 
 vim.opt.shortmess:append('c')
